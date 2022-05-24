@@ -1,0 +1,18 @@
+{
+  // Python Environment Setup
+  "python.poetryPath": "/Users/mohammadal-thunayan/.poetry/bin/poetry",
+
+  // Python Linting
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.mypyEnabled": true,
+
+  // Python Formating
+  "python.formatting.provider": "black",
+  "[python]": {
+    "editor.semanticHighlighting.enabled": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }
+}
