@@ -10,6 +10,7 @@
   // Python Formating
   "python.formatting.provider": "black",
   "[python]": {
+    "editor.defaultFormatter": null,
     "editor.semanticHighlighting.enabled": false,
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
