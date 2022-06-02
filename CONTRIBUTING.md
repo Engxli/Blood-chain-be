@@ -16,8 +16,6 @@ Pull requests are the best way to contribute to the codebase (we use [Github Flo
 
 ## Running the backend locally
 
-There are two options for running the backend on your machine:
-
 **1. Makefile Reference:**
 
 ```bash
