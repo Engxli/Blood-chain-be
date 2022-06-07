@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "graphene_django",
     "graphql_auth",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "users",
 ]
 
@@ -61,6 +62,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+GRAPHENE = {
+    "SCHEMA": "quickstart.schema.schema",  # this file doesn't exist yet
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
 
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
@@ -74,6 +82,7 @@ GRAPHQL_JWT = {
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.ObtainJSONWebToken",
     ],
 }
 
