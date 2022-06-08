@@ -63,7 +63,6 @@ MIDDLEWARE = [
 ]
 
 GRAPHENE = {
-    "SCHEMA": "quickstart.schema.schema",  # this file doesn't exist yet
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
