@@ -2,7 +2,8 @@ import graphene
 
 from hospitals.queries import HospitalQuery
 
-class Query(HospitalQuery,graphene.ObjectType):
+
+class Query(HospitalQuery, graphene.ObjectType):
     pass
 
 

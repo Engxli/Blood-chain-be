@@ -5,7 +5,6 @@ import graphene_django
 from graphql import GraphQLError
 
 from hospitals import models, types
-import hospitals
 
 
 class HospitalQuery(graphene.ObjectType):

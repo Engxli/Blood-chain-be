@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "graphene_django",
     "users",
-    "hospitals"
+    "hospitals",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
