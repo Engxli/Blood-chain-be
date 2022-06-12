@@ -1,5 +1,4 @@
 import graphene_django
-from attr import field
 
 from users import models
 

@@ -6,18 +6,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('requests', '0002_rename_blood_type_request_bloodtype'),
+        ("requests", "0002_rename_blood_type_request_bloodtype"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='request',
-            old_name='created_at',
-            new_name='createdAt',
+            model_name="request",
+            old_name="created_at",
+            new_name="createdAt",
         ),
         migrations.RenameField(
-            model_name='request',
-            old_name='modified_at',
-            new_name='modifiedAt',
+            model_name="request",
+            old_name="modified_at",
+            new_name="modifiedAt",
         ),
     ]
