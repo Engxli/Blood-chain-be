@@ -15,6 +15,7 @@ class Request(TimestampMixin, models.Model):
         ("AB-", "AB-"),
         ("AB+", "AB+"),
     )
+
     SEVERITY_CHOICES = (
         ("LOW", "LOW"),
         ("MEDIUM", "MEDIUM"),
@@ -26,7 +27,7 @@ class Request(TimestampMixin, models.Model):
         on_delete=models.CASCADE,
         related_name="request_owner",
     )
-    blood_type = models.CharField(max_length=3, choices=BLOOD_CHOICES)
+    bloodType = models.CharField(max_length=3, choices=BLOOD_CHOICES)
     severity = models.CharField(max_length=6, choices=SEVERITY_CHOICES)
     quantity = models.PositiveIntegerField()
     details = models.TextField()
