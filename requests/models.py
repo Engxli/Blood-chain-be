@@ -1,8 +1,10 @@
 from django.conf import settings
 from django.db import models
 
+from shared.models import TimestampMixin
 
-class Request(models.Model):
+
+class Request(TimestampMixin, models.Model):
     BLOOD_CHOICES = (
         ("A-", "A-"),
         ("A+", "A+"),
@@ -32,4 +34,3 @@ class Request(models.Model):
         settings.AUTH_USER_MODEL,
         related_name="request_donor",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
