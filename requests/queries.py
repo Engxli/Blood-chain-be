@@ -7,7 +7,7 @@ from graphql import GraphQLError
 from requests import models, types
 
 
-class RequestQueries(graphene.ObjectType):
+class RequestQuery(graphene.ObjectType):
     request = graphene.Field(types.RequestType, id=graphene.Int())
     requests = graphene_django.DjangoListField(types.RequestType)
 

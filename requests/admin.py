@@ -4,5 +4,6 @@ from requests import models
 
 
 @admin.register(models.Request)
-class AuthorAdmin(admin.ModelAdmin):
+# pylint: disable=unsubscriptable-object
+class RequestAdmin(admin.ModelAdmin[models.Request]):
     pass

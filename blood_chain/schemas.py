@@ -1,9 +1,9 @@
 import graphene
 
-from requests.queries import RequestQueries
+from requests.queries import RequestQuery
 
 
-class Query(RequestQueries, graphene.ObjectType):
+class Query(RequestQuery, graphene.ObjectType):
     pass
 
 
