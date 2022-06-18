@@ -10,7 +10,10 @@ class UserQuery(MeQuery, ObjectType):
     profile = Field(UserProfileType)
 
     def resolve_profile(root, info: ResolveInfo) -> UserProfile:
-        profile = UserProfile.objects.get(user_id=info.context.user.id)
-        if profile:
-            return profile
-        return UserProfile.objects.create(user=info.context.user)
+
+        try:
+            profile = UserProfile.objects.get(user_id=info.context.user.id)
+        except UserProfile.DoesNotExist:
+            profile = UserProfile.objects.create(user=info.context.user)
+
+        return profile
