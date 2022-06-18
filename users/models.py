@@ -8,7 +8,10 @@ class CustomUser(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, related_name="profile"
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="profile",
+        unique=True,
     )
     crypto_wallet = models.CharField(null=True, blank=True, max_length=35)
     phone = models.CharField(max_length=8, null=True, blank=True)
