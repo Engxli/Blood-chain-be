@@ -1,4 +1,4 @@
-import graphene
+from graphene import Field, ObjectType, ResolveInfo
 from graphql_auth.schema import MeQuery
 
 from users.types import UserProfileType
@@ -6,10 +6,10 @@ from users.types import UserProfileType
 from .models import UserProfile
 
 
-class UserQuery(MeQuery, graphene.ObjectType):
-    profile = graphene.Field(UserProfileType)
+class UserQuery(MeQuery, ObjectType):
+    profile = Field(UserProfileType)
 
-    def resolve_profile(root, info: graphene.ResolveInfo) -> UserProfile:
+    def resolve_profile(root, info: ResolveInfo) -> UserProfile:
         profile = UserProfile.objects.get(user_id=info.context.user.id)
         if profile:
             return profile
