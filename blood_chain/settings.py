@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "graphene",
     "graphene_django",
     "graphql_auth",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
