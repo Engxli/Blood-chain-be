@@ -1,7 +1,9 @@
 import graphene
 
+from hospitals.queries import HospitalQuery
 
-class Query(graphene.ObjectType):
+
+class Query(HospitalQuery, graphene.ObjectType):
     pass
 
 
@@ -9,4 +11,4 @@ class Mutation(graphene.ObjectType):
     pass
 
 
-SCHEMA = graphene.Schema()
+SCHEMA = graphene.Schema(query=Query)
