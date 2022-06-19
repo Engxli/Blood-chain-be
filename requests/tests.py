@@ -16,8 +16,8 @@ def request_() -> Request:
     user2 = User.objects.create(username="user2", password="ILoveDjango!")
     request = Request.objects.create(
         owner=user1,
-        bloodType="O-",
-        severity="HIGH",
+        blood_type=Request.BloodType.Omin,
+        severity=Request.Severity.HIGH,
         quantity=500,
         details="No details yet!",
     )
@@ -67,16 +67,16 @@ def test_request_query(
     data = content["data"]["request"]
     assert data["owner"]["id"] == str(request_.owner.id)
     assert data["owner"]["username"] in request_.owner.username
-    assert data["bloodType"] in blood_type[request_.bloodType]
+    assert data["bloodType"] in blood_type[request_.blood_type]
     assert data["severity"] in request_.severity
     assert data["quantity"] == request_.quantity
     assert data["details"] in request_.details
     for donor in data["donors"]:
         assert donor["id"] in [
-            str(donors.id) for donors in request_.donors.all()
+            str(donors.id) for donors in request_.donors.all().iterator()
         ]
         assert donor["username"] in [
-            donors.username for donors in request_.donors.all()
+            donors.username for donors in request_.donors.all().iterator()
         ]
 
 
@@ -89,16 +89,16 @@ def requests() -> list[Request]:
     user3 = User.objects.create(username="admin3", password="ILoveDjango!")
     request1 = Request.objects.create(
         owner=user1,
-        bloodType="O-",
-        severity="HIGH",
+        blood_type=Request.BloodType.Omin,
+        severity=Request.Severity.HIGH,
         quantity=500,
         details="No details yet!",
     )
     request1.donors.add(user1, user2)
     request2 = Request.objects.create(
         owner=user2,
-        bloodType="O-",
-        severity="HIGH",
+        blood_type=Request.BloodType.Omin,
+        severity=Request.Severity.HIGH,
         quantity=500,
         details="No details yet!",
     )
@@ -123,46 +123,43 @@ def test_requests_query(
     }
     response = client_query(
         """
-        {
+        query{
             requests {
-                id
-                createdAt
-                modifiedAt
-                owner {
-                id
-                username
-                }
-                bloodType
-                severity
-                quantity
-                details
-                donors {
-                id
-                username
+                        id
+                        createdAt
+                        modifiedAt
+                        owner {
+                        id
+                        username
+                        }
+                        bloodType
+                        severity
+                        quantity
+                        details
+                        donors {
+                        id
+                        username
+                    }
                 }
             }
-        }
         """
     )
     content = json.loads(response.content)
+
     assert "errors" not in content
     data = content["data"]["requests"]
-    for index, dataRequest in enumerate(data):
-        assert dataRequest["owner"]["id"] == str(requests[index].owner.id)
-        assert dataRequest["owner"]["id"] == str(requests[index].owner.id)
-        assert (
-            dataRequest["owner"]["username"] in requests[index].owner.username
-        )
-        assert (
-            dataRequest["bloodType"] in blood_type[requests[index].bloodType]
-        )
-        assert dataRequest["severity"] in requests[index].severity
-        assert dataRequest["quantity"] == requests[index].quantity
-        assert dataRequest["details"] in requests[index].details
-        for donor in dataRequest["donors"]:
+    for request, data_request in zip(requests, data):
+        assert data_request["owner"]["id"] == str(request.owner.id)
+        assert data_request["owner"]["id"] == str(request.owner.id)
+        assert data_request["owner"]["username"] in request.owner.username
+        assert data_request["bloodType"] in blood_type[request.blood_type]
+        assert data_request["severity"] in request.severity
+        assert data_request["quantity"] == request.quantity
+        assert data_request["details"] in request.details
+        for donor in data_request["donors"]:
             assert donor["id"] in [
-                str(donors.id) for donors in requests[index].donors.all()
+                str(donors.id) for donors in request.donors.all().iterator()
             ]
             assert donor["username"] in [
-                donors.username for donors in requests[index].donors.all()
+                donors.username for donors in request.donors.all().iterator()
             ]

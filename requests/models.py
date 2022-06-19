@@ -5,30 +5,28 @@ from shared.models import TimestampMixin
 
 
 class Request(TimestampMixin, models.Model):
-    BLOOD_CHOICES = (
-        ("A-", "A-"),
-        ("A+", "A+"),
-        ("B-", "B-"),
-        ("B+", "B+"),
-        ("O-", "O-"),
-        ("O+", "O+"),
-        ("AB-", "AB-"),
-        ("AB+", "AB+"),
-    )
+    class BloodType(models.TextChoices):
+        Amin = "A-"
+        Apos = "A+"
+        Omin = "O-"
+        Opos = "O+"
+        Bmin = "B-"
+        Bpos = "B+"
+        ABmin = "AB-"
+        ABpos = "AB+"
 
-    SEVERITY_CHOICES = (
-        ("LOW", "LOW"),
-        ("MEDIUM", "MEDIUM"),
-        ("HIGH", "HIGH"),
-    )
+    class Severity(models.TextChoices):
+        LOW = "LOW"
+        MEDIUM = "MEDIUM"
+        HIGH = "HIGH"
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="request_owner",
     )
-    bloodType = models.CharField(max_length=3, choices=BLOOD_CHOICES)
-    severity = models.CharField(max_length=6, choices=SEVERITY_CHOICES)
+    blood_type = models.CharField(max_length=3, choices=BloodType.choices)
+    severity = models.CharField(max_length=6, choices=Severity.choices)
     quantity = models.PositiveIntegerField()
     details = models.TextField()
     donors = models.ManyToManyField(
