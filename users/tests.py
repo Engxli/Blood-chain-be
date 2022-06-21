@@ -1,18 +1,22 @@
 from functools import partial
+from typing import TYPE_CHECKING
 
 import pytest
 from django.contrib.auth import get_user_model
 from graphene_django.utils.testing import graphql_query
 
 
+if TYPE_CHECKING:
+    from users.models import CustomUser as UserType
+
 User = get_user_model()
 
 
 @pytest.fixture
-def user() -> User:
-    return User.objects.create(
-        username="foo", email="foo@bar.com", password="bar"
-    )
+def user() -> "UserType":
+    user_obj = User(username="foo", email="foo@bar.com")
+    user_obj.set_password("bar12345678")
+    return user_obj
 
 
 @pytest.mark.django_db
@@ -87,9 +91,9 @@ class TestTokenAuth:
     @pytest.fixture
     @pytest.mark.django_db
     def test_fail(
-        self, user: User, client_query: partial[graphql_query]
+        self, user: "UserType", client_query: partial[graphql_query]
     ) -> None:
-        response = client_query(
+        client_query(
             """
             mutation token_auth($username: String!, $password: String!){
                 token_auth(username: $username, password: $password) {
