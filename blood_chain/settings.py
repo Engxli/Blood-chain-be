@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "graphql_auth",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "users",
+    "hospitals",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

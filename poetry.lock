@@ -19,7 +19,7 @@ tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
 
 [[package]]
 name = "astroid"
-version = "2.11.5"
+version = "2.11.6"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
@@ -34,7 +34,7 @@ wrapt = ">=1.11,<2"
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -87,9 +87,9 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "colorama"
-version = "0.4.4"
+version = "0.4.5"
 description = "Cross-platform colored terminal text."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -137,14 +137,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-filter"
-version = "21.1"
+version = "22.1"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
-Django = ">=2.2"
+Django = ">=3.2"
 
 [[package]]
 name = "django-graphql-auth"
@@ -182,7 +182,7 @@ PyJWT = ">=1.5.0"
 
 [[package]]
 name = "django-stubs"
-version = "1.11.0"
+version = "1.12.0"
 description = "Mypy stubs for Django"
 category = "dev"
 optional = false
@@ -191,15 +191,18 @@ python-versions = ">=3.7"
 [package.dependencies]
 django = "*"
 django-stubs-ext = ">=0.4.0"
-mypy = ">=0.930,<0.960"
+mypy = ">=0.930"
 tomli = "*"
 types-pytz = "*"
 types-PyYAML = "*"
 typing-extensions = "*"
 
+[package.extras]
+compatible-mypy = ["mypy (>=0.930,<0.970)"]
+
 [[package]]
 name = "django-stubs-ext"
-version = "0.4.0"
+version = "0.5.0"
 description = "Monkey-patching and extensions for django-stubs"
 category = "dev"
 optional = false
@@ -342,7 +345,7 @@ zoneinfo = ["backports.zoneinfo (>=0.2.1)", "tzdata (>=2022.1)"]
 name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -406,7 +409,7 @@ python-versions = "*"
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -437,7 +440,7 @@ test = ["appdirs (==1.4.4)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)", "pytes
 name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -463,7 +466,7 @@ test = ["pytest (>=2.7.3)", "pytest-cov", "coveralls", "futures", "pytest-benchm
 name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -482,30 +485,32 @@ test = ["pytest (>=4.0.1,<5.0.0)", "pytest-cov (>=2.6.0,<3.0.0)", "pytest-runner
 
 [[package]]
 name = "pylint"
-version = "2.13.9"
+version = "2.14.3"
 description = "python code static checker"
 category = "dev"
 optional = false
-python-versions = ">=3.6.2"
+python-versions = ">=3.7.2"
 
 [package.dependencies]
-astroid = ">=2.11.5,<=2.12.0-dev0"
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
+astroid = ">=2.11.6,<=2.12.0-dev0"
+colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = ">=0.2"
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2.0"
 tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
+tomlkit = ">=0.10.1"
 typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-testutil = ["gitpython (>3)"]
+spelling = ["pyenchant (>=3.2,<4.0)"]
+testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pyparsing"
 version = "3.0.9"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6.8"
 
@@ -516,7 +521,7 @@ diagrams = ["railroad-diagrams", "jinja2"]
 name = "pytest"
 version = "7.1.2"
 description = "pytest: simple powerful testing with Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -630,13 +635,21 @@ python-versions = "*"
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "tomlkit"
+version = "0.11.0"
+description = "Style preserving TOML library"
+category = "dev"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "types-pytz"
-version = "2021.3.8"
+version = "2022.1.0"
 description = "Typing stubs for pytz"
 category = "dev"
 optional = false
@@ -669,7 +682,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "368f753b2efa4691b3ace1b08a3857112afbae3eff03b6358008fda00d6f1c7f"
+content-hash = "6069ab2cce5b2466a0dcfdc318a42edb373611b84d90976428887cb55b20de6e"
 
 [metadata.files]
 aniso8601 = [
@@ -681,8 +694,8 @@ asgiref = [
     {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
 ]
 astroid = [
-    {file = "astroid-2.11.5-py3-none-any.whl", hash = "sha256:14ffbb4f6aa2cf474a0834014005487f7ecd8924996083ab411e7fa0b508ce0b"},
-    {file = "astroid-2.11.5.tar.gz", hash = "sha256:f4e4ec5294c4b07ac38bab9ca5ddd3914d4bf46f9006eb5c0ae755755061044e"},
+    {file = "astroid-2.11.6-py3-none-any.whl", hash = "sha256:ba33a82a9a9c06a5ceed98180c5aab16e29c285b828d94696bf32d6015ea82a9"},
+    {file = "astroid-2.11.6.tar.gz", hash = "sha256:4f933d0bf5e408b03a6feb5d23793740c27e07340605f236496cd6ce552043d6"},
 ]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
@@ -722,8 +735,8 @@ click = [
     {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
 ]
 colorama = [
-    {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
-    {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+    {file = "colorama-0.4.5-py2.py3-none-any.whl", hash = "sha256:854bf444933e37f5824ae7bfc1e98d5bce2ebe4160d46b5edf346a89358e99da"},
+    {file = "colorama-0.4.5.tar.gz", hash = "sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"},
 ]
 coverage = [
     {file = "coverage-6.4.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:f1d5aa2703e1dab4ae6cf416eb0095304f49d004c39e9db1d86f57924f43006b"},
@@ -777,8 +790,8 @@ django = [
     {file = "Django-3.2.13.tar.gz", hash = "sha256:6d93497a0a9bf6ba0e0b1a29cccdc40efbfc76297255b1309b3a884a688ec4b6"},
 ]
 django-filter = [
-    {file = "django-filter-21.1.tar.gz", hash = "sha256:632a251fa8f1aadb4b8cceff932bb52fe2f826dd7dfe7f3eac40e5c463d6836e"},
-    {file = "django_filter-21.1-py3-none-any.whl", hash = "sha256:f4a6737a30104c98d2e2a5fb93043f36dd7978e0c7ddc92f5998e85433ea5063"},
+    {file = "django-filter-22.1.tar.gz", hash = "sha256:ed473b76e84f7e83b2511bb2050c3efb36d135207d0128dfe3ae4b36e3594ba5"},
+    {file = "django_filter-22.1-py3-none-any.whl", hash = "sha256:ed429e34760127e3520a67f415bec4c905d4649fbe45d0d6da37e6ff5e0287eb"},
 ]
 django-graphql-auth = [
     {file = "django-graphql-auth-0.3.16.tar.gz", hash = "sha256:1e4e326ad2f71935e5bb9c40e3698bc57d3ba1ebdcd4d4a91e2b7ff4d65996a9"},
@@ -789,12 +802,12 @@ django-graphql-jwt = [
     {file = "django_graphql_jwt-0.3.0-py2.py3-none-any.whl", hash = "sha256:bcf0882a492e2148cba7cba3c39cf57834f736a2c289b66852239faf9b59b61e"},
 ]
 django-stubs = [
-    {file = "django-stubs-1.11.0.tar.gz", hash = "sha256:11a4aa094d3da0108d268386dfd0b9a5bf73fe1ab5919b5a292607671329bc4b"},
-    {file = "django_stubs-1.11.0-py3-none-any.whl", hash = "sha256:e9362c0992414560fc6d2f91aa4dd8339b1cbbf7ddacc95b06cc219b1792d217"},
+    {file = "django-stubs-1.12.0.tar.gz", hash = "sha256:ea8b35d0da49f7b2ee99a79125f1943e033431dd114726d6643cc35de619230e"},
+    {file = "django_stubs-1.12.0-py3-none-any.whl", hash = "sha256:0dff8ec0ba3abe046450b3d8a29ce9e72629893d2c1ef679189cc2bfdb6d2f64"},
 ]
 django-stubs-ext = [
-    {file = "django-stubs-ext-0.4.0.tar.gz", hash = "sha256:3104c4748c34bd741c310a3e6af90dffba46e41bccbe243896e38a708262876b"},
-    {file = "django_stubs_ext-0.4.0-py3-none-any.whl", hash = "sha256:901fc77b6338ea29fa381300ff598dd57d461a4882b756404e2aa7724f76fd7d"},
+    {file = "django-stubs-ext-0.5.0.tar.gz", hash = "sha256:9bd7418376ab00b7f88d6d56be9fece85bfa0c7c348ac621155fa4d7a91146f2"},
+    {file = "django_stubs_ext-0.5.0-py3-none-any.whl", hash = "sha256:c5d8db53d29c756e7e3d0820a5a079a43bc38d8fab0e1b8bd5df2f3366c54b5a"},
 ]
 exceptiongroup = [
     {file = "exceptiongroup-1.0.0rc8-py3-none-any.whl", hash = "sha256:ab0a968e1ef769e55d9a596f4a89f7be9ffedbc9fdefdb77cc68cf5c33ce1035"},
@@ -932,8 +945,8 @@ pyjwt = [
     {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
 ]
 pylint = [
-    {file = "pylint-2.13.9-py3-none-any.whl", hash = "sha256:705c620d388035bdd9ff8b44c5bcdd235bfb49d276d488dd2c8ff1736aa42526"},
-    {file = "pylint-2.13.9.tar.gz", hash = "sha256:095567c96e19e6f57b5b907e67d265ff535e588fe26b12b5ebe1fc5645b2c731"},
+    {file = "pylint-2.14.3-py3-none-any.whl", hash = "sha256:6757a027e15816be23625b079ebc45464e4c9d9dde0c826d18beee53fe22a2e7"},
+    {file = "pylint-2.14.3.tar.gz", hash = "sha256:4e1378f815c63e7e44590d0d339ed6435f5281d0a0cc357d29a86ea0365ef868"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
@@ -983,9 +996,13 @@ tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
+tomlkit = [
+    {file = "tomlkit-0.11.0-py3-none-any.whl", hash = "sha256:0f4050db66fd445b885778900ce4dd9aea8c90c4721141fde0d6ade893820ef1"},
+    {file = "tomlkit-0.11.0.tar.gz", hash = "sha256:71ceb10c0eefd8b8f11fe34e8a51ad07812cb1dc3de23247425fbc9ddc47b9dd"},
+]
 types-pytz = [
-    {file = "types-pytz-2021.3.8.tar.gz", hash = "sha256:41253a3a2bf028b6a3f17b58749a692d955af0f74e975de94f6f4d2d3cd01dbd"},
-    {file = "types_pytz-2021.3.8-py3-none-any.whl", hash = "sha256:aef4a917ab28c585d3f474bfce4f4b44b91e95d9d47d4de29dd845e0db8e3910"},
+    {file = "types-pytz-2022.1.0.tar.gz", hash = "sha256:bbe7eaf93b4fbec4780323af925286d265a6681f50dba57d16dbd8695c3ed63d"},
+    {file = "types_pytz-2022.1.0-py3-none-any.whl", hash = "sha256:20984c0c321d312caac8fd0a0b5456b615cb9cce74473624a794851a606fabae"},
 ]
 types-pyyaml = [
     {file = "types-PyYAML-6.0.8.tar.gz", hash = "sha256:d9495d377bb4f9c5387ac278776403eb3b4bb376851025d913eea4c22b4c6438"},

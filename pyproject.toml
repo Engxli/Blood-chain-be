@@ -86,6 +86,9 @@ disable = '''
   no-self-use,
   fixme,
   unsubscriptable-object,
+  unused-argument,
+  too-many-arguments,
+  invalid-str-returned,
   redefined-outer-name,
   inherit-non-class,
   import-outside-toplevel,
@@ -94,7 +97,8 @@ disable = '''
   # handled by black
   format,
   # handled by isort
-  wrong-import-order
+  wrong-import-order,
+  ungrouped-imports
 '''
 
 [tool.pytest.ini_options]
