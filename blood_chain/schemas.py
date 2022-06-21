@@ -1,14 +1,16 @@
 import graphene
 
 from hospitals.queries import HospitalQuery
+from users.mutations import AuthMutation
+from users.queries import UserQuery
 
 
-class Query(HospitalQuery, graphene.ObjectType):
+class Query(HospitalQuery, UserQuery, graphene.ObjectType):
     pass
 
 
-class Mutation(graphene.ObjectType):
+class Mutation(AuthMutation, graphene.ObjectType):
     pass
 
 
-SCHEMA = graphene.Schema(query=Query)
+SCHEMA = graphene.Schema(mutation=Mutation, query=Query)
