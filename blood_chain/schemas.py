@@ -1,11 +1,12 @@
 import graphene
 
 from hospitals.queries import HospitalQuery
+from requests.queries import RequestQuery
 from users.mutations import AuthMutation
 from users.queries import UserQuery
 
 
-class Query(HospitalQuery, UserQuery, graphene.ObjectType):
+class Query(HospitalQuery, RequestQuery, UserQuery, graphene.ObjectType):
     pass
 
 
