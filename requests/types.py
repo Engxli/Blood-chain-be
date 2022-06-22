@@ -7,7 +7,6 @@ from users.types import UserType
 
 class RequestType(graphene_django.DjangoObjectType):
     owner = graphene.Field(UserType)
-    # donors = graphene.
 
     class Meta:
         model = models.Request
