@@ -8,3 +8,6 @@ lint:
 	poetry run pylint **/*.py
 test:
 	poetry run pytest
+lock:
+	git checkout --theirs poetry.lock
+	poetry lock --no-update
