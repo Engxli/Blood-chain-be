@@ -1,9 +1,8 @@
 import json
-from functools import partial
 
 import pytest
-from graphene_django.utils.testing import graphql_query
 
+from conftest import ClientQuery
 from hospitals.models import Hospital
 
 
@@ -20,9 +19,7 @@ def hospitals() -> list[Hospital]:
 
 
 @pytest.mark.django_db
-def test_hospital_query(
-    client_query: partial[graphql_query], hospital: Hospital
-) -> None:
+def test_hospital_query(client_query: ClientQuery, hospital: Hospital) -> None:
     response = client_query(
         f"""
        {{
@@ -42,7 +39,7 @@ def test_hospital_query(
 
 @pytest.mark.django_db
 def test_hospitals_query(
-    client_query: partial[graphql_query], hospitals: list[Hospital]
+    client_query: ClientQuery, hospitals: list[Hospital]
 ) -> None:
     response = client_query(
         """

@@ -1,10 +1,9 @@
 import json
-from functools import partial
 
 import pytest
 from django.contrib.auth import get_user_model
-from graphene_django.utils.testing import graphql_query
 
+from conftest import ClientQuery
 from requests.models import Request
 
 
@@ -26,9 +25,7 @@ def request_() -> Request:
 
 
 @pytest.mark.django_db
-def test_request_query(
-    client_query: partial[graphql_query], request_: Request
-) -> None:
+def test_request_query(client_query: ClientQuery, request_: Request) -> None:
     blood_type = {
         "A+": "A__1",
         "A-": "A_",
@@ -109,7 +106,7 @@ def requests() -> list[Request]:
 
 @pytest.mark.django_db
 def test_requests_query(
-    client_query: partial[graphql_query], requests: list[Request]
+    client_query: ClientQuery, requests: list[Request]
 ) -> None:
     blood_type = {
         "A+": "A__1",

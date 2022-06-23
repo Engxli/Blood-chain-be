@@ -1,9 +1,9 @@
-from functools import partial
 from typing import TYPE_CHECKING
 
 import pytest
 from django.contrib.auth import get_user_model
-from graphene_django.utils.testing import graphql_query
+
+from conftest import ClientQuery
 
 
 if TYPE_CHECKING:
@@ -20,7 +20,7 @@ def user() -> "UserType":
 
 
 @pytest.mark.django_db
-def test_register(client_query: partial[graphql_query]) -> None:
+def test_register(client_query: ClientQuery) -> None:
     response = client_query(
         """
         mutation register(
@@ -63,7 +63,7 @@ def test_register(client_query: partial[graphql_query]) -> None:
 class TestTokenAuth:
     @pytest.fixture
     @pytest.mark.django_db
-    def test_success(self, client_query: partial[graphql_query]) -> None:
+    def test_success(self, client_query: ClientQuery) -> None:
         response = client_query(
             """
             mutation token_auth($username: String!, $password: String!){
@@ -90,9 +90,7 @@ class TestTokenAuth:
 
     @pytest.fixture
     @pytest.mark.django_db
-    def test_fail(
-        self, user: "UserType", client_query: partial[graphql_query]
-    ) -> None:
+    def test_fail(self, user: "UserType", client_query: ClientQuery) -> None:
         client_query(
             """
             mutation token_auth($username: String!, $password: String!){
@@ -118,7 +116,7 @@ class TestTokenAuth:
 
 
 @pytest.mark.django_db
-def test_profile_creation(client_query: partial[graphql_query]) -> None:
+def test_profile_creation(client_query: ClientQuery) -> None:
     user = User.objects.create_user(
         email="foo@spam2.com", username="foospam2", password="adminadmin"
     )
