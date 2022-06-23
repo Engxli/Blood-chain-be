@@ -21,10 +21,11 @@ black = "^22.3.0"
 django-stubs = "^1.11.0"
 isort = "^5.10.1"
 mypy = "0.950"
-pylint = "^2.13.9"
+pylint = "^2.14.3"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 pytest-django = "^4.5.2"
+pylint-django = "^2.5.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -72,6 +73,10 @@ show_error_codes = true
 [tool.django-stubs]
 django_settings_module = "blood_chain.settings"
 
+[tool.pylint.main]
+load-plugins = ["pylint_django"]
+django-settings-module = "blood_chain.settings"
+
 [tool.pylint.message_control]
 disable = '''
   attribute-defined-outside-init,
@@ -83,7 +88,6 @@ disable = '''
   no-member,
   raise-missing-from,
   no-self-argument,
-  no-self-use,
   fixme,
   unsubscriptable-object,
   unused-argument,
@@ -94,9 +98,7 @@ disable = '''
   import-outside-toplevel,
   too-many-ancestors,
   cyclic-import,
-  # handled by black
   format,
-  # handled by isort
   wrong-import-order,
   ungrouped-imports
 '''
