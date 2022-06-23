@@ -1,7 +1,7 @@
 import graphene_django
 from django.contrib.auth import get_user_model
 
-from .models import UserProfile
+from users.models import UserProfile
 
 
 User = get_user_model()

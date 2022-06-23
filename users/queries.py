@@ -1,9 +1,8 @@
 from graphene import Field, ObjectType, ResolveInfo
 from graphql_auth.schema import MeQuery
 
+from users.models import UserProfile
 from users.types import UserProfileType
-
-from .models import UserProfile
 
 
 class UserQuery(MeQuery, ObjectType):
