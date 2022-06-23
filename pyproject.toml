@@ -104,7 +104,8 @@ disable = '''
   cyclic-import,
   format,
   wrong-import-order,
-  ungrouped-imports
+  ungrouped-imports,
+  wrong-import-position
 '''
 
 [tool.pytest.ini_options]
