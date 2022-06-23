@@ -1,7 +1,4 @@
 {
-  // Python Environment Setup
-  "python.poetryPath": "/Users/mohammadal-thunayan/.poetry/bin/poetry",
-
   // Python Linting
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
