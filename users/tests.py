@@ -115,3 +115,43 @@ class TestTokenAuth:
 
         with pytest.raises(User.DoesNotExist):
             user.refresh_from_db()
+
+
+@pytest.mark.django_db
+def test_profile_creation(client_query: partial[graphql_query]) -> None:
+    user = User.objects.create_user(
+        email="foo@spam2.com", username="foospam2", password="adminadmin"
+    )
+
+    response = client_query(
+        """
+        mutation login(
+            $password: String!,
+            $username: String,
+            ) {
+                login(
+                    password: $password,
+                    username: $username,
+                ) {
+                    token
+                    success
+                    errors
+                    user{
+                        id
+                        profile{
+                            id
+                            cryptoWallet
+                            phone
+                        }
+                    }
+                }
+            }
+        """,
+        op_name="login",
+        variables=dict(username=user.username, password="adminadmin"),
+    )
+
+    content = response.json()
+    user_data = content["data"]["login"]["user"]
+
+    assert "profile" in user_data

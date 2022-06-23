@@ -14,4 +14,4 @@ class Mutation(AuthMutation, graphene.ObjectType):
     pass
 
 
-SCHEMA = graphene.Schema(mutation=Mutation, query=Query)
+SCHEMA = graphene.Schema(query=Query, mutation=Mutation)
