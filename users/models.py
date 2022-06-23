@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=8, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.user.email}"
+        return self.user.email
 
     class Meta:
         verbose_name = "Profile"
