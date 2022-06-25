@@ -121,7 +121,7 @@ def test_requests_query(
     response = client_query(
         """
         query{
-            requests {
+            requests(onlyEligible:false) {
                         id
                         createdAt
                         modifiedAt
