@@ -7,6 +7,32 @@ on:
     branches: [main, staging]
 
 jobs:
+  lint-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Commit Type
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: "^[A-Z][a-z]+|[a-z]+: .+$"
+          flags: "gm"
+          error: "Write proper git commit messages."
+          excludeDescription: "true"
+          excludeTitle: "true"
+          checkAllCommitMessages: "true"
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Line Length
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: "^.{4,72}$"
+          flags: "gm"
+          error: "The maximum line length of 72 characters is exceeded."
+          excludeDescription: "true"
+          excludeTitle: "true"
+          checkAllCommitMessages: "true"
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
 
