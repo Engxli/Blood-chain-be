@@ -85,7 +85,7 @@ def requests() -> list[Request]:
 
 
 @pytest.mark.django_db
-def test_requests_query(
+def test_requests_query_eligible_false(
     client_query: ClientQuery, requests: list[Request]
 ) -> None:
     blood_type = {
@@ -125,3 +125,29 @@ def test_requests_query(
         assert data_request["severity"] in request.severity
         assert data_request["quantity"] == request.quantity
         assert data_request["details"] in request.details
+
+
+@pytest.mark.django_db
+def test_requests_query_eligible_true_not_logged_in(
+    client_query: ClientQuery, requests: list[Request]
+) -> None:
+    response = client_query(
+        """
+        query{
+            requests(onlyEligible:true) {
+                id
+                owner {
+                    id
+                    bloodType
+                }
+                bloodType
+                severity
+                quantity
+                details
+            }
+        }
+        """
+    )
+    content = json.loads(response.content)
+
+    assert "errors" in content
