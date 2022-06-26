@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 import django_stubs_ext
@@ -93,6 +94,7 @@ GRAPHQL_JWT = {
         "graphql_auth.mutations.Register",
         "graphql_auth.mutations.ObtainJSONWebToken",
     ],
+    "JWT_EXPIRATION_DELTA": timedelta(minutes=60),
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
