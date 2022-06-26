@@ -20,4 +20,4 @@ class Donation(TimestampMixin, models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.donor} Donation for {self.request.owner} request"
+        return f"{self.donor.user.username}'s Donation for {self.request.owner.user.username}'s request"
