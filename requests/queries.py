@@ -29,6 +29,10 @@ class RequestQuery(graphene.ObjectType):
         root, info: graphene.ResolveInfo, only_eligible: bool
     ) -> QuerySet[models.Request]:
         user = get_user_from_context(info)
+        if only_eligible and user.is_anonymous:
+            raise GraphQLError(
+                "cannot filter for only eligible blood types without logging in"
+            )
         if only_eligible and user.is_authenticated:
             if user.profile.blood_type:
                 return models.Request.objects.filter(
