@@ -1,19 +1,12 @@
-from django.conf import settings
 from django.db import models
 
+from shared.enums import BloodType as _BloodType
 from shared.models import TimestampMixin
+from users.models import UserProfile
 
 
 class Request(TimestampMixin, models.Model):
-    class BloodType(models.TextChoices):
-        Amin = "A-"
-        Apos = "A+"
-        Omin = "O-"
-        Opos = "O+"
-        Bmin = "B-"
-        Bpos = "B+"
-        ABmin = "AB-"
-        ABpos = "AB+"
+    BloodType = _BloodType
 
     class Severity(models.TextChoices):
         LOW = "LOW"
@@ -21,15 +14,16 @@ class Request(TimestampMixin, models.Model):
         HIGH = "HIGH"
 
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        UserProfile,
         on_delete=models.CASCADE,
-        related_name="request_owner",
+        related_name="blood_requests",
     )
     blood_type = models.CharField(max_length=3, choices=BloodType.choices)
     severity = models.CharField(max_length=6, choices=Severity.choices)
     quantity = models.PositiveIntegerField()
     details = models.TextField()
-    donors = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name="request_donor",
-    )
+
+    def __str__(self) -> str:
+        return (
+            f"{self.blood_type} Blood Request from {self.owner.user.username}"
+        )
