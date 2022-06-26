@@ -6,12 +6,12 @@ from users.models import UserProfile
 
 
 class Donation(TimestampMixin, models.Model):
-    class Status(models.TextChoices):
-        PENDING = "PENDING"
-        COMPLETE = "COMPLETE"
-        CANCELED = "CANCELED"
+    class Status(models.IntegerChoices):
+        PENDING = 1
+        COMPLETE = 2
+        CANCELED = 3
 
-    status = models.CharField(max_length=8, choices=Status.choices)
+    status = models.IntegerField(choices=Status.choices)
     request = models.ForeignKey(
         Request, on_delete=models.CASCADE, related_name="donations"
     )
@@ -21,6 +21,3 @@ class Donation(TimestampMixin, models.Model):
 
     def __str__(self) -> str:
         return f"{self.donor.user.username}'s Donation for {self.request.owner.user.username}'s request"
-
-
-# change choices to ints
