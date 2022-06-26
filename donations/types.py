@@ -1,8 +1,8 @@
 import graphene_django
 
-from donations.models import Donation
+from donations import models
 
 
 class DonationType(graphene_django.DjangoObjectType):
     class Meta:
-        model = Donation
+        model = models.Donation
