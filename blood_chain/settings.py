@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "users",
     "hospitals",
     "requests",
+    "donations",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
