@@ -8,15 +8,19 @@ from donations import models, types
 
 
 class DonationQuery(graphene.ObjectType):
-    donations = graphene_django.DjangoListField(types.DonationType)
-    pending_donations = graphene_django.DjangoListField(types.DonationType)
+    donations = graphene_django.DjangoListField(
+        types.DonationType, pending=graphene.Boolean()
+    )
 
-    def resolve_pending_donations(
+    def resolve_donations(
         root, info: graphene.ResolveInfo, **kwargs: Any
     ) -> QuerySet[models.Donation]:
+
+        if kwargs and kwargs.pop("pending"):
+            return models.Donation.objects.filter(
+                status=1, donor__user_id=info.context.user.id
+            )
+
         return models.Donation.objects.filter(
-            status="PENDING", donor__user_id=info.context.user.id
+            donor__user_id=info.context.user.id
         )
-
-
-# make options for fe to filter by Fe
