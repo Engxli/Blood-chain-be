@@ -1,5 +1,3 @@
-from collections.abc import Sequence
-
 from django.db import models
 
 
@@ -15,7 +13,7 @@ class BloodType(models.TextChoices):
 
     # Refrance: https://www.inovablood.org/donate-blood/ideal-donation-for-your-blood-type/
     @property
-    def donates_to(self) -> Sequence["BloodType"]:
+    def donates_to(self) -> list[str]:
         return {
             self.Amin: [self.Amin, self.Omin],
             self.Apos: [
@@ -42,7 +40,7 @@ class BloodType(models.TextChoices):
         }[self]
 
     @property
-    def receives_from(self) -> Sequence["BloodType"]:
+    def receives_from(self) -> list[str]:
         return {
             self.Apos: [self.Apos, self.ABpos],
             self.Amin: [self.Amin, self.ABmin, self.Apos, self.ABpos],

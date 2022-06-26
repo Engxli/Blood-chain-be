@@ -2,9 +2,12 @@ from typing import Any
 
 import graphene
 import graphene_django
+from django.db.models import QuerySet
 from graphql import GraphQLError
 
 from requests import models, types
+from shared.enums import BloodType
+from shared.utility import get_user_from_context
 
 
 class RequestQuery(graphene.ObjectType):
@@ -24,11 +27,13 @@ class RequestQuery(graphene.ObjectType):
 
     def resolve_requests(
         root, info: graphene.ResolveInfo, only_eligible: bool
-    ) -> Any:
-
-        if only_eligible and info.context.user.is_authenticated:
-            if info.context.user.profile.blood_type:
+    ) -> QuerySet[models.Request]:
+        user = get_user_from_context(info)
+        if only_eligible and user.is_authenticated:
+            if user.profile.blood_type:
                 return models.Request.objects.filter(
-                    blood_type__in=info.context.user.profile.blood_type.donate_to
+                    blood_type__in=BloodType(
+                        user.profile.blood_type
+                    ).donates_to
                 )
         return models.Request.objects.all()
