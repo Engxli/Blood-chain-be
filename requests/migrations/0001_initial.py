@@ -58,18 +58,11 @@ class Migration(migrations.Migration):
                 ("quantity", models.PositiveIntegerField()),
                 ("details", models.TextField()),
                 (
-                    "donors",
-                    models.ManyToManyField(
-                        related_name="request_donor",
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
-                (
                     "owner",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="request_owner",
-                        to=settings.AUTH_USER_MODEL,
+                        related_name="blood_requests",
+                        to="users.userprofile",
                     ),
                 ),
             ],
