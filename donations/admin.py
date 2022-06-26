@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from donations import models
+from donations.models import Donation
 
 
-@admin.register(models.Donation)
-class DonationAdmin(admin.ModelAdmin[models.Donation]):
+# Register your models here.
+@admin.register(Donation)
+class DonationAdmin(admin.ModelAdmin[Donation]):
     pass
