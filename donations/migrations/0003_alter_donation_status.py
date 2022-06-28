@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('donations', '0002_donation_request'),
+        ("donations", "0002_donation_request"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='donation',
-            name='status',
-            field=models.IntegerField(choices=[(1, 'Pending'), (2, 'Complete'), (3, 'Canceled')]),
+            model_name="donation",
+            name="status",
+            field=models.IntegerField(
+                choices=[(1, "Pending"), (2, "Complete"), (3, "Canceled")]
+            ),
         ),
     ]
