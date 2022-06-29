@@ -2,16 +2,26 @@ import json
 
 import pytest
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 from conftest import ClientQuery
 from requests.models import Request
+from users.models import CustomUser
+
+
+User = get_user_model()
+
+
+def create_user(username: str, password: str = "ILoveDjango!") -> CustomUser:
+    return User.objects.create(
+        username=username, password=make_password(password)
+    )
 
 
 @pytest.fixture
 @pytest.mark.django_db
 def request_() -> Request:
-    User = get_user_model()
-    user1 = User.objects.create(username="user1", password="ILoveDjango!")
+    user1 = create_user(username="user1")
     request = Request.objects.create(
         owner=user1.profile,
         blood_type=Request.BloodType.Omin,
@@ -36,11 +46,11 @@ def test_request_query(client_query: ClientQuery, request_: Request) -> None:
     }
     response = client_query(
         f"""
-        query{{
+        query {{
             request(id: {request_.id}) {{
                 id
                 owner {{
-                id
+                    id
                 }}
                 bloodType
                 severity
@@ -50,8 +60,10 @@ def test_request_query(client_query: ClientQuery, request_: Request) -> None:
         }}
         """
     )
+
     content = json.loads(response.content)
     assert "errors" not in content
+
     data = content["data"]["request"]
     assert data["owner"]["id"] == str(request_.owner.id)
     assert data["bloodType"] in blood_type[request_.blood_type]
@@ -63,9 +75,9 @@ def test_request_query(client_query: ClientQuery, request_: Request) -> None:
 @pytest.fixture
 @pytest.mark.django_db
 def requests() -> list[Request]:
-    User = get_user_model()
-    user1 = User.objects.create(username="admin1", password="ILoveDjango!")
-    user2 = User.objects.create(username="admin2", password="ILoveDjango!")
+    user1 = create_user(username="admin1")
+    user2 = create_user(username="admin2")
+
     request1 = Request.objects.create(
         owner=user1.profile,
         blood_type=Request.BloodType.Omin,
@@ -100,7 +112,7 @@ def test_requests_query_eligible_false(
     }
     response = client_query(
         """
-        query{
+        query {
             requests(onlyEligible:false) {
                 id
                 owner {
@@ -115,25 +127,26 @@ def test_requests_query_eligible_false(
         }
         """
     )
-    content = json.loads(response.content)
 
+    content = json.loads(response.content)
     assert "errors" not in content
-    data = content["data"]["requests"]
-    for request, data_request in zip(requests, data):
-        assert data_request["owner"]["id"] == str(request.owner.id)
-        assert data_request["bloodType"] in blood_type[request.blood_type]
-        assert data_request["severity"] in request.severity
-        assert data_request["quantity"] == request.quantity
-        assert data_request["details"] in request.details
+
+    all_data = content["data"]["requests"]
+    for request, data in zip(requests, all_data):
+        assert data["owner"]["id"] == str(request.owner.id)
+        assert data["bloodType"] == blood_type[request.blood_type]
+        assert data["severity"] in request.severity
+        assert data["quantity"] == request.quantity
+        assert data["details"] in request.details
 
 
 @pytest.mark.django_db
 def test_requests_query_eligible_true_not_logged_in(
-    client_query: ClientQuery, requests: list[Request]
+    client_query: ClientQuery,
 ) -> None:
     response = client_query(
         """
-        query{
+        query {
             requests(onlyEligible:true) {
                 id
                 owner {
@@ -148,6 +161,6 @@ def test_requests_query_eligible_true_not_logged_in(
         }
         """
     )
-    content = json.loads(response.content)
 
+    content = json.loads(response.content)
     assert "errors" in content
