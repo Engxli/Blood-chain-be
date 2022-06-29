@@ -97,3 +97,6 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "masterclass-blood-chain"
           heroku_email: "malthunayan4@gmail.com"
+
+      - name: Run migrations on Heroku
+        run: heroku run python manage.py migrate
