@@ -13,8 +13,7 @@ from shared.utils import get_user_from_context
 class RequestQuery(graphene.ObjectType):
     request = graphene.Field(types.RequestType, id=graphene.Int())
     requests = graphene_django.DjangoListField(
-        types.RequestType,
-        only_eligible=graphene.Boolean(required=False, default_value=False),
+        types.RequestType, only_eligible=graphene.Boolean(default_value=False)
     )
 
     def resolve_request(
