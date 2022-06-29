@@ -7,7 +7,7 @@ from graphql import GraphQLError
 
 from requests import models, types
 from shared.enums import BloodType
-from shared.utility import get_user_from_context
+from shared.utils import get_user_from_context
 
 
 class RequestQuery(graphene.ObjectType):
