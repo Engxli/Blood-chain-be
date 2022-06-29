@@ -34,16 +34,6 @@ def request_() -> Request:
 
 @pytest.mark.django_db
 def test_request_query(client_query: ClientQuery, request_: Request) -> None:
-    blood_type = {
-        "A+": "A__1",
-        "A-": "A_",
-        "B+": "B__3",
-        "B-": "B_",
-        "O+": "O__5",
-        "O-": "O_",
-        "AB+": "AB__7",
-        "AB-": "AB_",
-    }
     response = client_query(
         f"""
         query {{
@@ -66,7 +56,7 @@ def test_request_query(client_query: ClientQuery, request_: Request) -> None:
 
     data = content["data"]["request"]
     assert data["owner"]["id"] == str(request_.owner.id)
-    assert data["bloodType"] in blood_type[request_.blood_type]
+    assert data["bloodType"] == Request.BloodType(request_.blood_type).name
     assert data["severity"] in request_.severity
     assert data["quantity"] == request_.quantity
     assert data["details"] in request_.details
@@ -100,16 +90,6 @@ def requests() -> list[Request]:
 def test_requests_query_eligible_false(
     client_query: ClientQuery, requests: list[Request]
 ) -> None:
-    blood_type = {
-        "A+": "A__1",
-        "A-": "A_",
-        "B+": "B__3",
-        "B-": "B_",
-        "O+": "O__5",
-        "O-": "O_",
-        "AB+": "AB__7",
-        "AB-": "AB_",
-    }
     response = client_query(
         """
         query {
@@ -134,7 +114,7 @@ def test_requests_query_eligible_false(
     all_data = content["data"]["requests"]
     for request, data in zip(requests, all_data):
         assert data["owner"]["id"] == str(request.owner.id)
-        assert data["bloodType"] == blood_type[request.blood_type]
+        assert data["bloodType"] == Request.BloodType(request.blood_type).name
         assert data["severity"] in request.severity
         assert data["quantity"] == request.quantity
         assert data["details"] in request.details
