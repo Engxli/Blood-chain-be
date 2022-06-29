@@ -30,7 +30,8 @@ class RequestQuery(graphene.ObjectType):
         qs = models.Request.objects.all()
         if only_eligible:
             profile = get_profile_from_context(info)
-            blood_type = BloodType(profile.blood_type)
-            qs = qs.filter(blood_type__in=blood_type.donates_to)
+            if profile.blood_type:
+                blood_type = BloodType(profile.blood_type)
+                qs = qs.filter(blood_type__in=blood_type.donates_to)
 
         return qs

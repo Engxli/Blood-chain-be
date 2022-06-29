@@ -20,10 +20,7 @@ class UserProfile(models.Model):
     crypto_wallet = models.CharField(max_length=35, default="", blank=True)
     phone = models.CharField(max_length=8, default="", blank=True)
     blood_type = models.CharField(
-        max_length=3,
-        choices=BloodType.choices,
-        default=BloodType.ABmin,
-        blank=True,
+        max_length=3, choices=BloodType.choices, null=True
     )
 
     def __str__(self) -> str:
