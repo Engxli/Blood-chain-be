@@ -1,5 +1,5 @@
 import graphene
-from graphql import GraphQLError
+from graphql_jwt.exceptions import PermissionDenied
 
 from users.models import CustomUser, UserProfile
 
@@ -15,5 +15,5 @@ def get_profile_from_context(
 ) -> UserProfile:
     user = get_user_from_context(info)
     if user.is_anonymous:
-        raise GraphQLError("login required!")
+        raise PermissionDenied
     return user.profile
