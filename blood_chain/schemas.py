@@ -1,12 +1,13 @@
 import graphene
 
 from hospitals.queries import HospitalQuery
-from requests.queries import RequestQuery
+from nft.queries import NFTQuery
+from requests_api.queries import RequestQuery
 from users.mutations import AuthMutation
 from users.queries import UserQuery
 
 
-class Query(HospitalQuery, RequestQuery, UserQuery, graphene.ObjectType):
+class Query(HospitalQuery, RequestQuery, UserQuery,NFTQuery, graphene.ObjectType):
     pass
 
 
