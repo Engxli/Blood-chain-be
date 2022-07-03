@@ -15,27 +15,24 @@ User = get_user_model()
 
 @pytest.fixture
 def user1() -> CustomUser:
-    user = User.objects.create(username="luis", password="adminadmin")
-    return user
+    return User.objects.create(username="luis", password="adminadmin")
 
 
 @pytest.fixture
 def user2() -> CustomUser:
-    user = User.objects.create(username="malthunayan", password="adminadmin")
-    return user
+    return User.objects.create(username="malthunayan", password="adminadmin")
 
 
 @pytest.fixture
 def blood_request(user1: CustomUser) -> Request:
     user1_profile = UserProfile.objects.get(user=user1)
-    request = Request.objects.create(
+    return Request.objects.create(
         owner=user1_profile,
         blood_type=Request.BloodType.Amin,
         severity=Request.Severity.LOW,
         quantity=1000,
         details="Gimme your blood",
     )
-    return request
 
 
 @pytest.mark.django_db
