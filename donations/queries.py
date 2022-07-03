@@ -18,7 +18,8 @@ class DonationQuery(graphene.ObjectType):
 
         if kwargs.pop("pending", False):
             return models.Donation.objects.filter(
-                status=1, donor__user_id=info.context.user.id
+                status=models.Donation.Status.PENDING,
+                donor__user_id=info.context.user.id,
             )
 
         return models.Donation.objects.filter(
