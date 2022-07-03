@@ -7,7 +7,9 @@ from users.mutations import AuthMutation
 from users.queries import UserQuery
 
 
-class Query(HospitalQuery, RequestQuery, UserQuery,NFTQuery, graphene.ObjectType):
+class Query(
+    HospitalQuery, RequestQuery, UserQuery, NFTQuery, graphene.ObjectType
+):
     pass
 
 

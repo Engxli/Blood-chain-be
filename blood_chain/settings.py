@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "requests",
     "donations",
     "requests_api",
-    "nft"
+    "nft",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
