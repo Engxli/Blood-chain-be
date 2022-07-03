@@ -16,7 +16,7 @@ class DonationQuery(graphene.ObjectType):
         root, info: graphene.ResolveInfo, **kwargs: Any
     ) -> QuerySet[models.Donation]:
 
-        if kwargs and kwargs.pop("pending"):
+        if kwargs.pop("pending", False):
             return models.Donation.objects.filter(
                 status=1, donor__user_id=info.context.user.id
             )
