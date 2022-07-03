@@ -160,4 +160,4 @@ def test_pending_donation_query(
         donor_user_id = donation["donor"]["user"]["id"]
 
         assert donor_user_id == str(user2.id)
-        assert status == 1
+        assert status == Donation.Status.PENDING
