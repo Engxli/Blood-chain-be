@@ -2,7 +2,7 @@ import graphene
 
 from hospitals.queries import HospitalQuery
 from requests.queries import RequestQuery
-from users.mutations import AuthMutation
+from users.mutations import AuthMutation, UserProfileMutaion
 from users.queries import UserQuery
 
 
@@ -10,7 +10,7 @@ class Query(HospitalQuery, RequestQuery, UserQuery, graphene.ObjectType):
     pass
 
 
-class Mutation(AuthMutation, graphene.ObjectType):
+class Mutation(UserProfileMutaion, AuthMutation, graphene.ObjectType):
     pass
 
 
