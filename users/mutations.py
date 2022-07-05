@@ -29,8 +29,9 @@ class UpdateProfile(graphene.Mutation):
         root, info: graphene.ResolveInfo, **kwargs: Any
     ) -> "UpdateProfile":
         profile = get_profile_from_context(info)
+        user_attributes = ("first_name", "last_name", "email")
         for key, value in kwargs.items():
-            if key in ["first_name", "last_name", "email"]:
+            if key in user_attributes:
                 setattr(profile.user, key, value)
             else:
                 setattr(profile, key, value)
@@ -52,6 +53,7 @@ class DeleteProfile(graphene.Mutation):
         profile.user.delete()
         return DeleteProfile(status=True)
 
-class UserProfileMutaion(graphene.ObjectType):
+
+class UserProfileMutation(graphene.ObjectType):
     update_profile = UpdateProfile.Field()
     delete_profile = DeleteProfile.Field()
