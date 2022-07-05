@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("users", "0004_userprofile_blood_type"),
-        ("requests", "0001_initial"),
+        ("requests_api", "0001_initial"),
     ]
 
     operations = [
