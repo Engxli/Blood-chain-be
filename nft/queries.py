@@ -1,15 +1,19 @@
-import json
 from typing import Any
 
 import graphene
 from decouple import config
 from web3 import Web3
+from web3.types import ENS
 
 from nft.abi import abi
 
 
-contract_address = "0x383aE8211d30df791b0Fc162F867908F9e65488a"
-w3 = Web3(Web3.HTTPProvider(config("ALCHEMY_API")))
+w3 = Web3(Web3.HTTPProvider(config("ALCHEMY_API", default="")))
+
+
+con = w3.eth.contract(
+    address=ENS("0x383aE8211d30df791b0Fc162F867908F9e65488a"), abi=abi
+)
 
 
 class NFTQuery(graphene.ObjectType):
@@ -17,6 +21,5 @@ class NFTQuery(graphene.ObjectType):
         graphene.NonNull(graphene.String), address=graphene.String()
     )
 
-    def resolve_nfts(root, info: graphene.ResolveInfo, address: str) -> list:
-        contract = w3.eth.contract(address=contract_address, abi=abi)
-        return contract.functions.getOwnedNFTs(address).call()
+    def resolve_nfts(root, info: graphene.ResolveInfo, address: str) -> Any:
+        return con.functions.getOwnedNFTs(address).call()

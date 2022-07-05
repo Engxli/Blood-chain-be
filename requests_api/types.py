@@ -14,4 +14,4 @@ class RequestType(graphene_django.DjangoObjectType):
     blood_type = graphene.Field(BloodTypeEnum)
 
     class Meta:
-        model = models.Request_api
+        model = models.Request

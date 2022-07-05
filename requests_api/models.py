@@ -24,7 +24,7 @@ class Request(TimestampMixin, models.Model):
         on_delete=models.CASCADE,
         related_name="blood_requests",
     )
-    blood_type: models.CharField[BloodType, str] = models.CharField(
+    blood_type: models.CharField[_BloodType, str] = models.CharField(
         max_length=3, choices=BloodType.choices
     )
     severity = models.CharField(max_length=6, choices=Severity.choices)

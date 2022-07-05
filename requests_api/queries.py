@@ -5,18 +5,9 @@ import graphene_django
 from django.db.models import QuerySet
 from graphql import GraphQLError
 
-
-<<<<<<< HEAD:requests/queries.py
-from requests import models, types
+from requests_api import models, types
 from shared.enums import BloodType
 from shared.utils import get_profile_from_context
-
-
-=======
-from requests_api import models, types
-
-
->>>>>>> origin/MAS-55-nft:requests_api/queries.py
 
 
 class RequestQuery(graphene.ObjectType):
@@ -27,10 +18,10 @@ class RequestQuery(graphene.ObjectType):
 
     def resolve_request(
         root, info: graphene.ResolveInfo, **kwargs: Any
-    ) -> models.Request_api:
+    ) -> models.Request:
         try:
-            return models.Request_api.objects.get(**kwargs)
-        except models.Request_api.DoesNotExist as exc:
+            return models.Request.objects.get(**kwargs)
+        except models.Request.DoesNotExist as exc:
             raise GraphQLError(str(exc))
 
     def resolve_requests(
