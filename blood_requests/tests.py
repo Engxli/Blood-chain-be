@@ -4,8 +4,8 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
+from blood_requests.models import Request
 from conftest import ClientQuery
-from requests.models import Request
 from users.models import CustomUser
 
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from requests import models
+from blood_requests import models
 
 
 @admin.register(models.Request)

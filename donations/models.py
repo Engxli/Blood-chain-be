@@ -1,6 +1,6 @@
 from django.db import models
 
-from requests.models import Request
+from blood_requests.models import Request
 from shared.models import TimestampMixin
 from users.models import UserProfile
 

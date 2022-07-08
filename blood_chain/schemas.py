@@ -1,9 +1,9 @@
 import graphene
 
+from blood_requests.queries import RequestQuery
 from donations.queries import DonationQuery
 from hospitals.queries import HospitalQuery
 from nft.queries import NFTQuery
-from requests.queries import RequestQuery
 from users.mutations import AuthMutation, UserProfileMutation
 from users.queries import UserQuery
 
