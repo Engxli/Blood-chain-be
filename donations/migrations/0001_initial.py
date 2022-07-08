@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="donations",
-                        to="requests.Request",
+                        to="requests.request",
                     ),
                 ),
             ],
