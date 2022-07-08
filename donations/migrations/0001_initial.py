@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("users", "0004_userprofile_blood_type"),
-        ("requests_api", "0001_initial"),
+        ("requests", "0001_initial"),
     ]
 
     operations = [
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="donations",
-                        to="requests.request",
+                        to="requests.Request",
                     ),
                 ),
             ],

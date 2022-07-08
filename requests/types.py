@@ -1,7 +1,7 @@
 import graphene
 import graphene_django
 
-from requests_api import models
+from requests import models
 from shared.utils import get_graphene_enum
 from users.types import UserProfileType
 

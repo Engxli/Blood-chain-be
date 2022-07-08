@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "hospitals",
     "requests",
     "donations",
-    "requests_api",
     "nft",
 ]
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from requests_api import models
+from requests import models
 
 
 @admin.register(models.Request)

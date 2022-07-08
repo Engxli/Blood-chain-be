@@ -5,7 +5,7 @@ import graphene_django
 from django.db.models import QuerySet
 from graphql import GraphQLError
 
-from requests_api import models, types
+from requests import models, types
 from shared.enums import BloodType
 from shared.utils import get_profile_from_context
 
