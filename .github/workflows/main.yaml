@@ -99,4 +99,6 @@ jobs:
           heroku_email: "malthunayan4@gmail.com"
 
       - name: Run migrations on Heroku
-        run: heroku run python manage.py migrate
+        run: |
+          heroku run ./manage.py collectstatic --noinput \
+          && ./manage.py migrate --noinput
