@@ -11,13 +11,20 @@ class Donation(TimestampMixin, models.Model):
         COMPLETE = 2
         CANCELED = 3
 
-    status = models.IntegerField(choices=Status.choices)
+    status = models.IntegerField(choices=Status.choices, null=True)
     request = models.ForeignKey(
-        Request, on_delete=models.CASCADE, related_name="donations"
+        Request, null=True, on_delete=models.CASCADE, related_name="donations"
     )
     donor = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name="donations"
+        UserProfile,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="donations",
     )
 
     def __str__(self) -> str:
-        return f"{self.donor.user.username}'s Donation for {self.request.owner.user.username}'s request"
+        donor = self.donor.user.username if self.donor else "Unknown"
+        requester = (
+            self.request.owner.user.username if self.request else "Unknown"
+        )
+        return f"{donor}'s Donation for {requester}'s request"
