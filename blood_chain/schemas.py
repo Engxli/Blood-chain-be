@@ -1,19 +1,25 @@
 import graphene
 
+from donations.queries import DonationQuery
 from hospitals.queries import HospitalQuery
 from nft.queries import NFTQuery
 from requests.queries import RequestQuery
-from users.mutations import AuthMutation
+from users.mutations import AuthMutation, UserProfileMutation
 from users.queries import UserQuery
 
 
 class Query(
-    HospitalQuery, RequestQuery, UserQuery, NFTQuery, graphene.ObjectType
+    DonationQuery,
+    HospitalQuery,
+    NFTQuery,
+    RequestQuery,
+    UserQuery,
+    graphene.ObjectType,
 ):
     pass
 
 
-class Mutation(AuthMutation, graphene.ObjectType):
+class Mutation(UserProfileMutation, AuthMutation, graphene.ObjectType):
     pass
 
 
