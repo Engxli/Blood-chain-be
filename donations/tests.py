@@ -4,9 +4,9 @@ import pytest
 from django.contrib.auth import get_user_model
 from graphql_jwt.shortcuts import get_token
 
+from blood_requests.models import Request
 from conftest import ClientQuery
 from donations.models import Donation
-from requests.models import Request
 from users.models import CustomUser, UserProfile
 
 

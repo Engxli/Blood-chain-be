@@ -21,6 +21,7 @@ hypothesis = { extras = ["django"], version = "^6.47.3" }
 python-decouple = "^3.6"
 psycopg2 = "^2.9.3"
 django-cors-headers = "^3.13.0"
+web3 = "^5.29.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"

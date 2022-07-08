@@ -1,14 +1,20 @@
 import graphene
 
+from blood_requests.queries import RequestQuery
 from donations.queries import DonationQuery
 from hospitals.queries import HospitalQuery
-from requests.queries import RequestQuery
+from nft.queries import NFTQuery
 from users.mutations import AuthMutation, UserProfileMutation
 from users.queries import UserQuery
 
 
 class Query(
-    DonationQuery, HospitalQuery, RequestQuery, UserQuery, graphene.ObjectType
+    DonationQuery,
+    HospitalQuery,
+    NFTQuery,
+    RequestQuery,
+    UserQuery,
+    graphene.ObjectType,
 ):
     pass
 

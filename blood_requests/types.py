@@ -3,9 +3,9 @@ from typing import Iterable
 import graphene
 import graphene_django
 
+from blood_requests import models
 from donations.models import Donation
 from donations.types import DonationType
-from requests import models
 from shared.utils import get_graphene_enum
 from users.types import UserProfileType
 

@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "users",
     "hospitals",
-    "requests",
+    "blood_requests",
     "donations",
+    "nft",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

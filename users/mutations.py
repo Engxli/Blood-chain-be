@@ -4,7 +4,7 @@ import graphene
 from graphql_auth import mutations
 from graphql_jwt.exceptions import PermissionDenied
 
-from requests.types import BloodTypeEnum
+from blood_requests.types import BloodTypeEnum
 from shared.utils import get_profile_from_context
 from users import types
 
