@@ -1,7 +1,7 @@
 import graphene
 
 from blood_requests.models import Request
-from blood_requests.types import RequestType
+from blood_requests.types import BloodTypeEnum, RequestType
 from blood_requests.utils import PositiveIntField
 from shared.enums import BloodType
 from shared.utils import get_graphene_enum, get_profile_from_context
@@ -14,8 +14,8 @@ class CreateBloodRequest(graphene.Mutation):
     request = graphene.Field(RequestType)
 
     class Arguments:
-        blood_type = graphene.String()
-        severity = graphene.String()
+        blood_type = BloodTypeEnum()
+        severity = SeverityTypeEnum()
         quantity = graphene.Argument(PositiveIntField)
         details = graphene.String()
 
