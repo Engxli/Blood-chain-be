@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "blood_requests",
     "donations",
     "nft",
+    "analytics",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
