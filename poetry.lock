@@ -41,7 +41,7 @@ python-versions = "*"
 name = "annotated-types"
 version = "0.2.0"
 description = "Reusable constraint types to use with typing.Annotated"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7.0,<4.0.0"
 
@@ -1271,7 +1271,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.13"
-content-hash = "4ada4f76240a3259b902c01439657ddfd2a24729ae61667296c589d730fc728a"
+content-hash = "6fff5f5ead71fc06d7388545060ffe49c7b89559ce170c42195c43e41aa7fdf3"
 
 [metadata.files]
 aiohttp = []
