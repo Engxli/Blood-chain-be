@@ -1,5 +1,6 @@
 import graphene
 
+from blood_requests.mutations import RequestMutation
 from blood_requests.queries import RequestQuery
 from donations.queries import DonationQuery
 from hospitals.queries import HospitalQuery
@@ -19,7 +20,9 @@ class Query(
     pass
 
 
-class Mutation(UserProfileMutation, AuthMutation, graphene.ObjectType):
+class Mutation(
+    RequestMutation, UserProfileMutation, AuthMutation, graphene.ObjectType
+):
     pass
 
 

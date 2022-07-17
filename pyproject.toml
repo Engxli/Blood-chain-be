@@ -32,6 +32,7 @@ pylint-django = "^2.5.3"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 pytest-django = "^4.5.2"
+annotated-types = "^0.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
