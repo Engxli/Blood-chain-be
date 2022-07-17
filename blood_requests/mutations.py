@@ -2,8 +2,8 @@ import graphene
 
 from blood_requests.models import Request
 from blood_requests.types import BloodTypeEnum, RequestType
-from blood_requests.utils import PositiveIntField
 from shared.enums import BloodType
+from shared.scalars import PositiveIntField
 from shared.utils import get_graphene_enum, get_profile_from_context
 
 

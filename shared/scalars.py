@@ -1,14 +1,17 @@
-from typing import Annotated, Any, Union
+from typing import TYPE_CHECKING, Annotated, Any, Union
 
-from annotated_types import Ge
 from graphene.types import Scalar
 from graphql.language.ast import IntValue
 
 
+if TYPE_CHECKING:
+    from annotated_types import Ge
+
+    PositiveInt = Annotated[int, Ge(1)]
+    PositiveIntOrNone = Union[PositiveInt, None]
+
 MIN_INT = 1
 MAX_INT = 2147483647
-
-_PositiveIntFieldType = Annotated[int, Ge(1)]
 
 
 class PositiveIntField(Scalar):
@@ -20,16 +23,11 @@ class PositiveIntField(Scalar):
     """
 
     @staticmethod
-    def coerce_int(
-        value: int,
-    ) -> Union[_PositiveIntFieldType, None]:
+    def coerce_int(value: int) -> "PositiveIntOrNone":
         try:
-            num = int(value)
+            num = int(float(value))
         except ValueError:
-            try:
-                num = int(float(value))
-            except ValueError:
-                return None
+            return None
         if MIN_INT <= num <= MAX_INT:
             return num
 
@@ -39,7 +37,7 @@ class PositiveIntField(Scalar):
     parse_value = coerce_int
 
     @staticmethod
-    def parse_literal(ast: Any) -> Union[_PositiveIntFieldType, None]:
+    def parse_literal(ast: Any) -> "PositiveIntOrNone":
         if isinstance(ast, IntValue):
             num = int(ast.value)
             if MIN_INT <= num <= MAX_INT:
