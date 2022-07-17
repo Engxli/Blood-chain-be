@@ -100,5 +100,5 @@ jobs:
 
       - name: Run migrations on Heroku
         run: |
-          heroku run ./manage.py collectstatic --noinput \
-          && ./manage.py migrate --noinput
+          heroku run ./manage.py collectstatic --noinput
+          heroku run ./manage.py migrate --noinput
