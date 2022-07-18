@@ -72,7 +72,6 @@ def test_analytics_query(
     client_query: ClientQuery,
     requests: list[Request],
     donations: list[Donation],
-    # capsys: Any,
 ) -> None:
     response = client_query(
         """
