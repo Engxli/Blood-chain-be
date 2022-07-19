@@ -1,9 +1,12 @@
+from datetime import timedelta
 from typing import Optional, Union
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Q
 from django.db.models.expressions import Combinable
+from django.utils import timezone
 
 from shared.enums import BloodType as _BloodType
 
@@ -39,6 +42,16 @@ class UserProfile(models.Model):
 
         return f"Guest User {self.phone}"
 
+    @property
+    def can_donate(self) -> bool:
+        from donations.models import Donation
+
+        latest_valid_date = timezone.now() - timedelta(days=7 * 12)
+        donation = Donation.objects.filter(
+            Q(completed_at__gt=latest_valid_date) | Q(completed_at=None),
+            donor=self,
+        )
+        return not donation.exists()
 
     class Meta:
         verbose_name = "Profile"
