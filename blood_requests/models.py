@@ -32,6 +32,4 @@ class Request(TimestampMixin, models.Model):
     details = models.TextField()
 
     def __str__(self) -> str:
-        return (
-            f"{self.blood_type} Blood Request from {self.owner.user.username}"
-        )
+        return f"{self.blood_type} Blood Request from {self.owner}"

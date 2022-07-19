@@ -1,6 +1,5 @@
 from django.db import models
 
-from blood_requests.models import Request
 from shared.models import TimestampMixin
 from users.models import UserProfile
 
@@ -13,18 +12,21 @@ class Donation(TimestampMixin, models.Model):
 
     status = models.IntegerField(choices=Status.choices, null=True)
     request = models.ForeignKey(
-        Request, null=True, on_delete=models.CASCADE, related_name="donations"
-    )
-    donor = models.ForeignKey(
-        UserProfile,
+        "requests.Request",
         null=True,
         on_delete=models.CASCADE,
         related_name="donations",
     )
+    donor = models.ForeignKey(
+        UserProfile,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="donations",
+    )
+    completed_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
-        donor = self.donor.user.username if self.donor else "Unknown"
-        requester = (
-            self.request.owner.user.username if self.request else "Unknown"
-        )
+        donor = self.donor
+        requester = self.request.owner if self.request else None
         return f"{donor}'s Donation for {requester}'s request"
