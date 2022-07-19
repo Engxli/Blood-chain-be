@@ -8,7 +8,9 @@ from django.db.models.expressions import Combinable
 from shared.enums import BloodType as _BloodType
 
 
-_User = models.OneToOneField[Union["CustomUser", Combinable], "CustomUser"]
+_User = models.OneToOneField[
+    Union["CustomUser", Combinable, None], Union["CustomUser", None]
+]
 
 
 class CustomUser(AbstractUser):
@@ -22,6 +24,8 @@ class UserProfile(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="profile",
+        null=True,
+        blank=True,
     )
     crypto_wallet = models.CharField(max_length=35, default="", blank=True)
     phone = models.CharField(max_length=8, default="", blank=True)
@@ -30,7 +34,11 @@ class UserProfile(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.user.email
+        if user := self.user:
+            return f"UserProfile: {user}"
+
+        return f"Guest User {self.phone}"
+
 
     class Meta:
         verbose_name = "Profile"

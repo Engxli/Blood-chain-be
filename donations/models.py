@@ -23,8 +23,6 @@ class Donation(TimestampMixin, models.Model):
     )
 
     def __str__(self) -> str:
-        donor = self.donor.user.username if self.donor else "Unknown"
-        requester = (
-            self.request.owner.user.username if self.request else "Unknown"
-        )
+        donor = self.donor
+        requester = self.request.owner if self.request else None
         return f"{donor}'s Donation for {requester}'s request"

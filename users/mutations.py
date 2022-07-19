@@ -1,6 +1,7 @@
 from typing import Any
 
 import graphene
+from graphql import GraphQLError
 from graphql_auth import mutations
 from graphql_jwt.exceptions import PermissionDenied
 
@@ -29,14 +30,19 @@ class UpdateProfile(graphene.Mutation):
         root, info: graphene.ResolveInfo, **kwargs: Any
     ) -> "UpdateProfile":
         profile = get_profile_from_context(info)
+        if profile.user is None:
+            raise GraphQLError("an unknown error occurred")
+
         user_attributes = ("first_name", "last_name", "email")
         for key, value in kwargs.items():
             if key in user_attributes:
                 setattr(profile.user, key, value)
             else:
                 setattr(profile, key, value)
+
         profile.user.save()
         profile.save()
+
         return UpdateProfile(profile=profile)
 
 
@@ -50,7 +56,11 @@ class DeleteProfile(graphene.Mutation):
             profile = get_profile_from_context(info)
         except PermissionDenied:
             return DeleteProfile(status=False)
-        profile.user.delete()
+
+        profile.delete()
+        if profile.user:
+            profile.user.delete()
+
         return DeleteProfile(status=True)
 
 
