@@ -27,6 +27,7 @@ def request_() -> Request:
         blood_type=Request.BloodType.Omin,
         severity=Request.Severity.HIGH,
         quantity=500,
+        file_number=1234,
         details="No details yet!",
     )
     return request
@@ -73,6 +74,7 @@ def requests() -> list[Request]:
         blood_type=Request.BloodType.Omin,
         severity=Request.Severity.HIGH,
         quantity=500,
+        file_number=1234,
         details="No details yet!",
     )
     request2 = Request.objects.create(
@@ -80,6 +82,7 @@ def requests() -> list[Request]:
         blood_type=Request.BloodType.Omin,
         severity=Request.Severity.HIGH,
         quantity=500,
+        file_number=1234,
         details="No details yet!",
     )
 
