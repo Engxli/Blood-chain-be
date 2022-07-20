@@ -44,3 +44,7 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+
+admin.site.site_header = "Blood-Chain Admin"
+admin.site.site_title = "Welcome to Blood-Chain's Portal"
+admin.site.index_title = "Blood-Chain Portal"
