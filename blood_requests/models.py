@@ -27,6 +27,7 @@ class Request(TimestampMixin, models.Model):
     blood_type: models.CharField[_BloodType, str] = models.CharField(
         max_length=3, choices=BloodType.choices
     )
+    file_number = models.IntegerField(null=True)
     severity = models.CharField(max_length=6, choices=Severity.choices)
     quantity = models.PositiveIntegerField()
     details = models.TextField()
