@@ -20,6 +20,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
 
+from api import views
 from blood_chain.schemas import SCHEMA
 
 
@@ -33,6 +34,7 @@ urlpatterns = [
             )
         ),
     ),
+    path("api/nft/<int:nft_id>", views.get_nft_info_by_id, name="nft-detail"),
 ]
 
 if settings.DEBUG:
