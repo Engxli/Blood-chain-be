@@ -1,8 +1,9 @@
+from typing import Any
+
 import graphene
 
 from blood_requests.models import Request
 from blood_requests.types import BloodTypeEnum, RequestType
-from shared.enums import BloodType
 from shared.scalars import PositiveIntField
 from shared.utils import get_graphene_enum, get_profile_from_context
 
@@ -17,25 +18,16 @@ class CreateBloodRequest(graphene.Mutation):
         blood_type = BloodTypeEnum()
         severity = SeverityTypeEnum()
         quantity = graphene.Argument(PositiveIntField)
+        file_number = graphene.Int(required=True)
         details = graphene.String()
 
     def mutate(
         root,
         info: graphene.ResolveInfo,
-        blood_type: BloodType,
-        severity: Request.Severity,
-        quantity: int,
-        details: str,
+        **kwargs: Any,
     ) -> Request:
         owner = get_profile_from_context(info)
-
-        blood_request = Request.objects.create(
-            owner=owner,
-            blood_type=blood_type,
-            severity=severity,
-            quantity=quantity,
-            details=details,
-        )
+        blood_request = Request.objects.create(**kwargs, owner=owner)
 
         return CreateBloodRequest(request=blood_request)
 
