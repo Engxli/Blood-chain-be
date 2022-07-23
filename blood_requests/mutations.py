@@ -17,6 +17,7 @@ class CreateBloodRequest(graphene.Mutation):
         blood_type = BloodTypeEnum()
         severity = SeverityTypeEnum()
         quantity = graphene.Argument(PositiveIntField)
+        file_number = graphene.Int(required=True)
         details = graphene.String()
 
     def mutate(
