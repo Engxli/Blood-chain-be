@@ -20,6 +20,7 @@ django-stubs = "^1.12.0"
 graphene-django = "^2.15.0"
 graphene-file-upload = "^1.3.0"
 hypothesis = { extras = ["django"], version = "^6.47.3" }
+Pillow = "^9.2.0"
 psycopg2 = "^2.9.3"
 python-decouple = "^3.6"
 web3 = "^5.29.2"
