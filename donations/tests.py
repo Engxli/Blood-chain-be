@@ -31,6 +31,7 @@ def blood_request(user1: CustomUser) -> Request:
         blood_type=Request.BloodType.Amin,
         severity=Request.Severity.LOW,
         quantity=1000,
+        file_number=1234,
         details="Gimme your blood",
     )
 

@@ -38,6 +38,7 @@ def requests(user1: CustomUser, user2: CustomUser) -> list[Request]:
         blood_type=Request.BloodType.Omin,
         severity=Request.Severity.HIGH,
         quantity=500,
+        file_number=1234,
         details="No details yet!",
     )
     request2 = Request.objects.create(
@@ -45,6 +46,7 @@ def requests(user1: CustomUser, user2: CustomUser) -> list[Request]:
         blood_type=Request.BloodType.Omin,
         severity=Request.Severity.HIGH,
         quantity=500,
+        file_number=1234,
         details="No details yet!",
     )
 
