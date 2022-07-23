@@ -30,7 +30,7 @@ class Request(TimestampMixin, models.Model):
     file_number = models.IntegerField(null=True)
     severity = models.CharField(max_length=6, choices=Severity.choices)
     quantity = models.PositiveIntegerField()
-    details = models.TextField()
+    details = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
         return f"{self.blood_type} Blood Request from {self.owner}"
