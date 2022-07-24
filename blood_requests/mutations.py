@@ -1,6 +1,8 @@
 from typing import Any
 
 import graphene
+from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 
 from blood_requests.models import Request
 from blood_requests.types import BloodTypeEnum, RequestType
@@ -31,6 +33,27 @@ class CreateBloodRequest(graphene.Mutation):
 
         return CreateBloodRequest(request=blood_request)
 
+class CancelBloodRequest(graphene.Mutation):
+    class Arguments:
+        request_id = graphene.Int(required=True)
+
+    request = graphene.Field(RequestType)
+
+    @login_required
+    def mutate(
+        root, info: graphene.ResolveInfo, request_id: int
+    ) -> "CancelBloodRequest":
+        try:
+            request = Request.objects.get(id=request_id)
+        except Request.DoesNotExist as exc:
+            raise GraphQLError(str(exc))
+        if request.status != request.Status.ONGOING:
+            raise GraphQLError("Request is not ongoing")
+        request.status = request.Status.CANCELED
+        request.save()
+        return CancelBloodRequest(request=request)
+
 
 class RequestMutation(graphene.ObjectType):
     create_blood_request = CreateBloodRequest.Field()
+    cancel_blood_request = CancelBloodRequest.Field()
