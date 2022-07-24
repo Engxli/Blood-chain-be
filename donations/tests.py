@@ -75,7 +75,7 @@ def test_donation_query(
     response = client_query(
         """
         query{
-            donations{
+            userDonations{
                 id
                 donor{
                     user{
@@ -90,7 +90,7 @@ def test_donation_query(
     )
 
     content = json.loads(response.content)
-    donations = content["data"]["donations"]
+    donations = content["data"]["userDonations"]
 
     assert "errors" not in content
 
@@ -134,8 +134,8 @@ def test_pending_donation_query(
 
     response = client_query(
         """
-        query donations($pending: Boolean){
-            donations(pending: $pending) {
+        query userDonations($pending: Boolean){
+            userDonations(pending: $pending) {
                 id
                 status
                 donor{
@@ -154,7 +154,7 @@ def test_pending_donation_query(
     content = json.loads(response.content)
     assert "errors" not in content
 
-    donations = content["data"]["donations"]
+    donations = content["data"]["userDonations"]
 
     for donation in donations:
         status = donation["status"]
