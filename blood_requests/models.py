@@ -18,7 +18,7 @@ class Request(TimestampMixin, models.Model):
         LOW = "LOW"
         MEDIUM = "MEDIUM"
         HIGH = "HIGH"
-    
+
     class Status(models.IntegerChoices):
         ONGOING = 1
         COMPLETE = 2

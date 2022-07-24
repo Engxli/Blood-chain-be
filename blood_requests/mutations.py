@@ -31,9 +31,12 @@ class CreateBloodRequest(graphene.Mutation):
         **kwargs: Any,
     ) -> Request:
         owner = get_profile_from_context(info)
-        blood_request = Request.objects.create(**kwargs, owner=owner)
+        blood_request = Request.objects.create(
+            **kwargs, owner=owner, status=Request.Status.ONGOING
+        )
 
         return CreateBloodRequest(request=blood_request)
+
 
 class CancelBloodRequest(graphene.Mutation):
     class Arguments:
@@ -56,9 +59,10 @@ class CancelBloodRequest(graphene.Mutation):
             Q(status=models.Donation.Status.PENDING),
             request=request_id,
         )
-        donations.update(status = models.Donation.Status.CANCELED)
+        donations.update(status=models.Donation.Status.CANCELED)
         request.save()
         return CancelBloodRequest(request=request)
+
 
 class CompleteBloodRequest(graphene.Mutation):
     class Arguments:
@@ -81,11 +85,9 @@ class CompleteBloodRequest(graphene.Mutation):
             Q(status=models.Donation.Status.PENDING),
             request=request_id,
         )
-        donations.update(status = models.Donation.Status.CANCELED)
+        donations.update(status=models.Donation.Status.CANCELED)
         request.save()
         return CompleteBloodRequest(request=request)
-
-
 
 
 class RequestMutation(graphene.ObjectType):

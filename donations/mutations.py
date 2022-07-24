@@ -23,10 +23,10 @@ class CreateDonation(graphene.Mutation):
             req = Request.objects.get(pk=request_id)
         except Request.DoesNotExist as exc:
             raise GraphQLError(str(exc))
-        
+
         if req.status != Request.Status.ONGOING:
             raise GraphQLError("Request is no longer ongoing")
-        
+
         if user.is_anonymous:
             donation = models.Donation.objects.create(
                 donator=None,
