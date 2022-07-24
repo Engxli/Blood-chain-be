@@ -6,6 +6,7 @@ from blood_requests.queries import RequestQuery
 from donations.mutations import DonationMutation
 from donations.queries import DonationQuery
 from hospitals.queries import HospitalQuery
+from nft.mutations import NFTMutation
 from nft.queries import NFTQuery
 from users.mutations import AuthMutation, UserProfileMutation
 from users.queries import UserQuery
@@ -28,6 +29,7 @@ class Mutation(
     DonationMutation,
     RequestMutation,
     UserProfileMutation,
+    NFTMutation,
     graphene.ObjectType,
 ):
     pass
