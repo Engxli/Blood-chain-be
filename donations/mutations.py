@@ -20,12 +20,11 @@ class CreateDonation(graphene.Mutation):
     ) -> "CreateDonation":
         user = get_user_from_context(info)
         req = Request.objects.get(pk=request_id)
-        print(req)
         if user.is_anonymous:
             donation = models.Donation.objects.create(
                 donator=None,
                 request=req,
-                status=models.Donation.donation.Status.PENDING,
+                status=models.Donation.Status.PENDING,
             )
         else:
             if user.profile.can_donate:
