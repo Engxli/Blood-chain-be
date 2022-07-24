@@ -24,6 +24,7 @@ Pillow = "^9.2.0"
 psycopg2 = "^2.9.3"
 python-decouple = "^3.6"
 web3 = "^5.29.2"
+django-admin-interface = "^0.19.1"
 
 [tool.poetry.dev-dependencies]
 annotated-types = "^0.2.0"
