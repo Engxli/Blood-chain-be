@@ -52,11 +52,10 @@ class CancelDonation(graphene.Mutation):
             donation = models.Donation.objects.get(id=donation_id)
         except models.Donation.DoesNotExist as exc:
             raise GraphQLError(str(exc))
-        if donation.status == donation.Status.COMPLETE:
+        if donation.status != donation.Status.PENDING:
             raise GraphQLError("donation is already complete")
-        else:
-            donation.status = donation.Status.CANCELED
-            donation.save()
+        donation.status = donation.Status.CANCELED
+        donation.save()
         return CancelDonation(donation=donation)
 
 
