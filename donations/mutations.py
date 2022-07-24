@@ -6,7 +6,7 @@ from graphql_jwt.decorators import login_required
 
 from blood_requests.models import Request
 from donations import models, types
-from shared.utils import get_user_from_context
+from shared.utils import get_user_from_context, give_permission_to_mint
 
 
 class CreateDonation(graphene.Mutation):
@@ -55,6 +55,7 @@ class CompleteDonation(graphene.Mutation):
         donation.completed_at = datetime.now()
         donation.status = donation.Status.COMPLETE
         donation.save()
+        give_permission_to_mint(info)
         return CompleteDonation(donation=donation)
 
 
