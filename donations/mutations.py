@@ -37,6 +37,7 @@ class CreateDonation(graphene.Mutation):
                 raise GraphQLError("not eligible for donation")
         return CreateDonation(donation=donation)
 
+
 class CancelDonation(graphene.Mutation):
     class Arguments:
         donation_id = graphene.Int(required=True)
@@ -57,6 +58,7 @@ class CancelDonation(graphene.Mutation):
             donation.status = donation.Status.CANCELED
             donation.save()
         return CancelDonation(donation=donation)
+
 
 class CompleteDonation(graphene.Mutation):
     class Arguments:
