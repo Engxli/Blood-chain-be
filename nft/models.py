@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import UserProfile
+
 
 class AttributeName(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -24,3 +26,15 @@ class NFT(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class NFTMint(models.Model):
+    ts = models.CharField(max_length=255)
+    signed_message = models.CharField(max_length=255)
+    signature_v = models.IntegerField()
+    signature_r = models.CharField(max_length=255)
+    signature_s = models.CharField(max_length=255)
+    used = models.BooleanField(default=False)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name="nft_mint"
+    )
