@@ -1,9 +1,13 @@
 from typing import Any
 
 import graphene
+from django.db.models import Q
+from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 
 from blood_requests.models import Request
 from blood_requests.types import BloodTypeEnum, RequestType
+from donations import models
 from shared.scalars import PositiveIntField
 from shared.utils import get_graphene_enum, get_profile_from_context
 
@@ -27,10 +31,66 @@ class CreateBloodRequest(graphene.Mutation):
         **kwargs: Any,
     ) -> Request:
         owner = get_profile_from_context(info)
-        blood_request = Request.objects.create(**kwargs, owner=owner)
+        blood_request = Request.objects.create(
+            **kwargs, owner=owner, status=Request.Status.ONGOING
+        )
 
         return CreateBloodRequest(request=blood_request)
 
 
+class CancelBloodRequest(graphene.Mutation):
+    class Arguments:
+        request_id = graphene.Int(required=True)
+
+    request = graphene.Field(RequestType)
+
+    @login_required
+    def mutate(
+        root, info: graphene.ResolveInfo, request_id: int
+    ) -> "CancelBloodRequest":
+        try:
+            request = Request.objects.get(id=request_id)
+        except Request.DoesNotExist as exc:
+            raise GraphQLError(str(exc))
+        if request.status != request.Status.ONGOING:
+            raise GraphQLError("Request is not ongoing")
+        request.status = request.Status.CANCELED
+        donations = models.Donation.objects.filter(
+            Q(status=models.Donation.Status.PENDING),
+            request=request_id,
+        )
+        donations.update(status=models.Donation.Status.CANCELED)
+        request.save()
+        return CancelBloodRequest(request=request)
+
+
+class CompleteBloodRequest(graphene.Mutation):
+    class Arguments:
+        request_id = graphene.Int(required=True)
+
+    request = graphene.Field(RequestType)
+
+    @login_required
+    def mutate(
+        root, info: graphene.ResolveInfo, request_id: int
+    ) -> "CompleteBloodRequest":
+        try:
+            request = Request.objects.get(id=request_id)
+        except Request.DoesNotExist as exc:
+            raise GraphQLError(str(exc))
+        if request.status != request.Status.ONGOING:
+            raise GraphQLError("Request is not ongoing")
+        request.status = request.Status.COMPLETE
+        donations = models.Donation.objects.filter(
+            Q(status=models.Donation.Status.PENDING),
+            request=request_id,
+        )
+        donations.update(status=models.Donation.Status.CANCELED)
+        request.save()
+        return CompleteBloodRequest(request=request)
+
+
 class RequestMutation(graphene.ObjectType):
     create_blood_request = CreateBloodRequest.Field()
+    cancel_blood_request = CancelBloodRequest.Field()
+    complete_blood_request = CompleteBloodRequest.Field()
