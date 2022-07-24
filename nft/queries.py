@@ -1,19 +1,10 @@
 from typing import Any
 
 import graphene
-from decouple import config
-from web3 import Web3
-from web3.types import ENS
+from django.db.models import QuerySet
 
-from nft.abi import abi
-
-
-w3 = Web3(Web3.HTTPProvider(config("ALCHEMY_API", default="")))
-
-
-con = w3.eth.contract(
-    address=ENS("0x383aE8211d30df791b0Fc162F867908F9e65488a"), abi=abi
-)
+from nft import models, types
+from shared.utils import get_profile_from_context, smart_contract
 
 
 class NFTQuery(graphene.ObjectType):
@@ -21,5 +12,13 @@ class NFTQuery(graphene.ObjectType):
         graphene.NonNull(graphene.String), address=graphene.String()
     )
 
+    nft_mint = graphene.List(types.NFTMintType)
+
     def resolve_nfts(root, info: graphene.ResolveInfo, address: str) -> Any:
-        return con.functions.getOwnedNFTs(address).call()
+        return smart_contract.functions.getOwnedNFTs(address).call()
+
+    def resolve_nft_mint(
+        root, info: graphene.ResolveInfo
+    ) -> QuerySet[models.NFTMint]:
+        profile = get_profile_from_context(info)
+        return models.NFTMint.objects.filter(user=profile, used=False)
