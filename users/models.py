@@ -30,7 +30,7 @@ class UserProfile(models.Model):
         null=True,
         blank=True,
     )
-    crypto_wallet = models.CharField(max_length=35, default="", blank=True)
+    crypto_wallet = models.CharField(max_length=100, default="", blank=True)
     phone = models.CharField(max_length=8, default="", blank=True)
     blood_type: models.CharField[_BloodType, Optional[str]] = models.CharField(
         max_length=3, choices=BloodType.choices, null=True
