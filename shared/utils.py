@@ -63,3 +63,13 @@ def give_permission_to_mint(
             "signature_s": to_32byte_hex(signature.s),
         }
         NFTMint.objects.create(**nft_mint, user=profile)
+
+
+def get_used_nfts_mint_from_smart_contract(
+    signed_messages: list[str],
+) -> list[Any]:
+    returned_values = smart_contract.functions.check_used_signed(
+        signed_messages
+    ).call()
+    only_used_messages = (value for value in returned_values if value[0])
+    return [signed_messages[msg[1]] for msg in only_used_messages]
