@@ -38,6 +38,27 @@ class CreateDonation(graphene.Mutation):
         return CreateDonation(donation=donation)
 
 
+class CancelDonation(graphene.Mutation):
+    class Arguments:
+        donation_id = graphene.Int(required=True)
+
+    donation = graphene.Field(types.DonationType)
+
+    @login_required
+    def mutate(
+        root, info: graphene.ResolveInfo, donation_id: int
+    ) -> "CancelDonation":
+        try:
+            donation = models.Donation.objects.get(id=donation_id)
+        except models.Donation.DoesNotExist as exc:
+            raise GraphQLError(str(exc))
+        if donation.status != donation.Status.PENDING:
+            raise GraphQLError("donation is already complete")
+        donation.status = donation.Status.CANCELED
+        donation.save()
+        return CancelDonation(donation=donation)
+
+
 class CompleteDonation(graphene.Mutation):
     class Arguments:
         donation_id = graphene.Int(required=True)
@@ -79,5 +100,6 @@ class DeleteDonation(graphene.Mutation):
 
 class DonationMutation(graphene.ObjectType):
     create_donation = CreateDonation.Field()
+    cancel_donation = CancelDonation.Field()
     complete_donation = CompleteDonation.Field()
     delete_donation = DeleteDonation.Field()

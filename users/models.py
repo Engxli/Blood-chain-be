@@ -50,7 +50,7 @@ class UserProfile(models.Model):
         donation = Donation.objects.filter(
             Q(completed_at__gt=latest_valid_date) | Q(completed_at=None),
             donor=self,
-        )
+        ).exclude(status=Donation.Status.CANCELED)
         return not donation.exists()
 
     class Meta:
