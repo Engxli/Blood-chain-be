@@ -53,7 +53,28 @@ class CancelBloodRequest(graphene.Mutation):
         request.save()
         return CancelBloodRequest(request=request)
 
+class CompleteBloodRequest(graphene.Mutation):
+    class Arguments:
+        request_id = graphene.Int(required=True)
+
+    request = graphene.Field(RequestType)
+
+    @login_required
+    def mutate(
+        root, info: graphene.ResolveInfo, request_id: int
+    ) -> "CompleteBloodRequest":
+        try:
+            request = Request.objects.get(id=request_id)
+        except Request.DoesNotExist as exc:
+            raise GraphQLError(str(exc))
+        if request.status != request.Status.ONGOING:
+            raise GraphQLError("Request is not ongoing")
+        request.status = request.Status.COMPLETE
+        request.save()
+        return CompleteBloodRequest(request=request)
+
 
 class RequestMutation(graphene.ObjectType):
     create_blood_request = CreateBloodRequest.Field()
     cancel_blood_request = CancelBloodRequest.Field()
+    complete_blood_request = CompleteBloodRequest.Field()
