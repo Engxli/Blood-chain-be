@@ -243,6 +243,31 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-admin-interface"
+version = "0.19.1"
+description = "django-admin-interface is a modern responsive flat admin interface customizable by the admin itself."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+django-colorfield = ">=0.2,<1.0"
+django-flat-responsive = ">=1.0,<3.0"
+django-flat-theme = ">=1.0,<2.0"
+six = ">=1.9.0,<2.0.0"
+
+[[package]]
+name = "django-colorfield"
+version = "0.7.2"
+description = "simple color field for your models with a nice color-picker in the admin-interface."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Pillow = ">=5.0"
+
+[[package]]
 name = "django-cors-headers"
 version = "3.13.0"
 description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
@@ -263,6 +288,22 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 Django = ">=3.2"
+
+[[package]]
+name = "django-flat-responsive"
+version = "2.0"
+description = "An extension for Django admin that makes interface mobile friendly."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "django-flat-theme"
+version = "1.1.4"
+description = "A flat theme for Django admin interface. Modern, fresh, simple."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "django-graphql-auth"
@@ -346,7 +387,7 @@ typing-extensions = "*"
 
 [[package]]
 name = "eth-abi"
-version = "2.1.1"
+version = "2.2.0"
 description = "eth_abi: Python utilities for working with Ethereum ABI definitions, especially encoding and decoding"
 category = "main"
 optional = false
@@ -358,11 +399,11 @@ eth-utils = ">=1.2.0,<2.0.0"
 parsimonious = ">=0.8.0,<0.9.0"
 
 [package.extras]
-tools = ["hypothesis (>=3.6.1,<4)"]
-test = ["hypothesis (>=3.6.1,<4)", "eth-hash", "tox (>=2.9.1,<3)", "pytest-xdist (==1.22.3)", "pytest-pythonpath (>=0.7.1)", "pytest (==4.4.1)"]
-lint = ["pydocstyle (>=3.0.0,<4)", "mypy (==0.701)", "isort (>=4.2.15,<5)", "flake8 (==3.4.1)"]
-doc = ["towncrier (>=19.2.0,<20)", "sphinx-rtd-theme (>=0.1.9)", "Sphinx (>=1.6.5,<2)"]
-dev = ["towncrier (>=19.2.0,<20)", "sphinx-rtd-theme (>=0.1.9)", "Sphinx (>=1.6.5,<2)", "pydocstyle (>=3.0.0,<4)", "mypy (==0.701)", "isort (>=4.2.15,<5)", "flake8 (==3.4.1)", "hypothesis (>=3.6.1,<4)", "eth-hash", "tox (>=2.9.1,<3)", "pytest-xdist (==1.22.3)", "pytest-pythonpath (>=0.7.1)", "pytest (==4.4.1)", "ipython", "twine", "wheel", "pytest-watch (>=4.1.0,<5)", "bumpversion (>=0.5.3,<1)"]
+tools = ["hypothesis (>=4.18.2,<5.0.0)"]
+test = ["hypothesis (>=4.18.2,<5.0.0)", "eth-hash", "tox (>=2.9.1,<3)", "pytest-xdist (==1.22.3)", "pytest-pythonpath (>=0.7.1)", "pytest (==4.4.1)"]
+lint = ["pydocstyle (>=3.0.0,<4)", "mypy (==0.910)", "isort (>=4.2.15,<5)", "flake8 (==4.0.1)"]
+doc = ["towncrier (>=21,<22)", "sphinx-rtd-theme (>=0.1.9)", "jinja2 (>=3.0.0,<3.1.0)", "Sphinx (>=1.6.5,<2)"]
+dev = ["towncrier (>=21,<22)", "sphinx-rtd-theme (>=0.1.9)", "jinja2 (>=3.0.0,<3.1.0)", "Sphinx (>=1.6.5,<2)", "pydocstyle (>=3.0.0,<4)", "mypy (==0.910)", "isort (>=4.2.15,<5)", "flake8 (==4.0.1)", "hypothesis (>=4.18.2,<5.0.0)", "eth-hash", "tox (>=2.9.1,<3)", "pytest-xdist (==1.22.3)", "pytest-pythonpath (>=0.7.1)", "pytest (==4.4.1)", "ipython", "twine", "wheel", "pytest-watch (>=4.1.0,<5)", "bumpversion (>=0.5.3,<1)"]
 
 [[package]]
 name = "eth-account"
@@ -1287,7 +1328,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.13"
-content-hash = "fefa0f9769b5b822de723c8fdf2b1409dff1f3c4bf12d5a34e4f33fd4b99c0ec"
+content-hash = "7abc13acb671635e0ad6ccd2a6b212ae917445c87a9a82b68c6bbfa2f6c721b5"
 
 [metadata.files]
 aiohttp = []
@@ -1359,6 +1400,8 @@ dj-database-url = [
     {file = "dj_database_url-0.5.0-py2.py3-none-any.whl", hash = "sha256:851785365761ebe4994a921b433062309eb882fedd318e1b0fcecc607ed02da9"},
 ]
 django = []
+django-admin-interface = []
+django-colorfield = []
 django-cors-headers = [
     {file = "django-cors-headers-3.13.0.tar.gz", hash = "sha256:f9dc6b4e3f611c3199700b3e5f3398c28757dcd559c2f82932687f3d0443cfdf"},
     {file = "django_cors_headers-3.13.0-py3-none-any.whl", hash = "sha256:37e42883b5f1f2295df6b4bba96eb2417a14a03270cb24b2a07f021cd4487cf4"},
@@ -1367,6 +1410,8 @@ django-filter = [
     {file = "django-filter-22.1.tar.gz", hash = "sha256:ed473b76e84f7e83b2511bb2050c3efb36d135207d0128dfe3ae4b36e3594ba5"},
     {file = "django_filter-22.1-py3-none-any.whl", hash = "sha256:ed429e34760127e3520a67f415bec4c905d4649fbe45d0d6da37e6ff5e0287eb"},
 ]
+django-flat-responsive = []
+django-flat-theme = []
 django-graphql-auth = [
     {file = "django-graphql-auth-0.3.16.tar.gz", hash = "sha256:1e4e326ad2f71935e5bb9c40e3698bc57d3ba1ebdcd4d4a91e2b7ff4d65996a9"},
     {file = "django_graphql_auth-0.3.16-py2.py3-none-any.whl", hash = "sha256:f60a8d1c1497d97f74193ab5b8475b6c2432840bb383e641dd1a78ff909490ee"},
