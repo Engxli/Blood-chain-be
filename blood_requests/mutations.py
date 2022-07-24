@@ -1,11 +1,13 @@
 from typing import Any
 
 import graphene
+from django.db.models import Q
 from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 
 from blood_requests.models import Request
 from blood_requests.types import BloodTypeEnum, RequestType
+from donations import models
 from shared.scalars import PositiveIntField
 from shared.utils import get_graphene_enum, get_profile_from_context
 
@@ -50,6 +52,11 @@ class CancelBloodRequest(graphene.Mutation):
         if request.status != request.Status.ONGOING:
             raise GraphQLError("Request is not ongoing")
         request.status = request.Status.CANCELED
+        donations = models.Donation.objects.filter(
+            Q(status=models.Donation.Status.PENDING),
+            request=request_id,
+        )
+        donations.update(status = models.Donation.Status.CANCELED)
         request.save()
         return CancelBloodRequest(request=request)
 
@@ -70,8 +77,15 @@ class CompleteBloodRequest(graphene.Mutation):
         if request.status != request.Status.ONGOING:
             raise GraphQLError("Request is not ongoing")
         request.status = request.Status.COMPLETE
+        donations = models.Donation.objects.filter(
+            Q(status=models.Donation.Status.PENDING),
+            request=request_id,
+        )
+        donations.update(status = models.Donation.Status.CANCELED)
         request.save()
         return CompleteBloodRequest(request=request)
+
+
 
 
 class RequestMutation(graphene.ObjectType):

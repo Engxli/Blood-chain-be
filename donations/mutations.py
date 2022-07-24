@@ -21,7 +21,7 @@ class CreateDonation(graphene.Mutation):
         user = get_user_from_context(info)
         try:
             req = Request.objects.get(pk=request_id)
-        except models.Request.DoesNotExist as exc:
+        except Request.DoesNotExist as exc:
             raise GraphQLError(str(exc))
         
         if req.status != Request.Status.ONGOING:
