@@ -406,3 +406,4 @@ abi = [
         "constant": True,
     },
 ]
+contract_address = ""
