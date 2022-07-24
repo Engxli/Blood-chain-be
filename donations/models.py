@@ -25,7 +25,6 @@ class Donation(TimestampMixin, models.Model):
         related_name="donations",
     )
     completed_at = models.DateTimeField(null=True, blank=True)
-    verification = models.ImageField(null=True)
 
     def __str__(self) -> str:
         donor = self.donor

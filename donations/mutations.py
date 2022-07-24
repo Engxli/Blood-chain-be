@@ -23,12 +23,12 @@ class CreateDonation(graphene.Mutation):
         print(req)
         if user.is_anonymous:
             donation = models.Donation.objects.create(
-                donator=None, request=req, status = 1
+                donator=None, request=req, status=1
             )
         else:
             if user.profile.can_donate:
                 donation = models.Donation.objects.create(
-                    donor=user.profile, request=req, status = 1
+                    donor=user.profile, request=req, status=1
                 )
             else:
                 raise GraphQLError("not eligible for donation")
@@ -38,6 +38,7 @@ class CreateDonation(graphene.Mutation):
 class CompleteDonation(graphene.Mutation):
     class Arguments:
         donation_id = graphene.Int(required=True)
+
     donation = graphene.Field(types.DonationType)
 
     @login_required
