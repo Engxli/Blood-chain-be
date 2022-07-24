@@ -38,7 +38,6 @@ class CreateDonation(graphene.Mutation):
 class CompleteDonation(graphene.Mutation):
     class Arguments:
         donation_id = graphene.Int(required=True)
-
     donation = graphene.Field(types.DonationType)
 
     @login_required
