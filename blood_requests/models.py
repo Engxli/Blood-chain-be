@@ -18,6 +18,11 @@ class Request(TimestampMixin, models.Model):
         LOW = "LOW"
         MEDIUM = "MEDIUM"
         HIGH = "HIGH"
+    
+    class Status(models.IntegerChoices):
+        ONGOING = 1
+        COMPLETE = 2
+        CANCELED = 3
 
     owner: _Owner = models.ForeignKey(
         UserProfile,
@@ -29,6 +34,7 @@ class Request(TimestampMixin, models.Model):
     )
     file_number = models.IntegerField(null=True)
     severity = models.CharField(max_length=6, choices=Severity.choices)
+    status = models.IntegerField(choices=Status.choices, null=True)
     quantity = models.PositiveIntegerField()
     details = models.TextField(blank=True, default="")
 
