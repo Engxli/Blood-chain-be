@@ -17,6 +17,9 @@ class Attributes(models.Model):
     def __str__(self) -> str:
         return self.attr_name.name + ": " + self.value
 
+    class Meta:
+        verbose_name_plural = "Attributes"
+
 
 class NFT(models.Model):
     name = models.CharField(max_length=255)
