@@ -10,7 +10,9 @@ class Donation(TimestampMixin, models.Model):
         COMPLETE = 2
         CANCELED = 3
 
-    status = models.IntegerField(choices=Status.choices, null=True)
+    status = models.IntegerField(
+        choices=Status.choices, null=True, blank=True, default=Status.PENDING
+    )
     request = models.ForeignKey(
         "requests.Request",
         null=True,

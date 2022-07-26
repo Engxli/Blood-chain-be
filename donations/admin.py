@@ -1,5 +1,6 @@
 from typing import Any, Optional
 
+from django import forms
 from django.contrib import admin
 from django.db.models import QuerySet
 
@@ -42,10 +43,21 @@ def mark_as_complete(
         mark_donation_as_completed(donation)
 
 
+
+
+
+class DonationForm(forms.ModelForm[models.Donation]):
+    class Meta:
+        model = models.Donation
+        exclude = ["status"]
+
+
 @admin.register(models.Donation)
 class DonationAdmin(admin.ModelAdmin[models.Donation]):
-    list_display = ("id", "donor", "image")
+    list_display = ("id", "donor", "request", "image", "status")
     list_display_links = ("id", "donor")
-    list_filter = (SubmitForReviewFilter,)
+
+    list_filter = (SubmitForReviewFilter,"status")
 
     actions = (mark_as_complete,)
+    form = DonationForm
