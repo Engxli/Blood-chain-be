@@ -38,7 +38,7 @@ class UserProfile(models.Model):
 
     def __str__(self) -> str:
         if user := self.user:
-            return f"UserProfile: {user}"
+            return f"{user}"
 
         return f"Guest User {self.phone}"
 

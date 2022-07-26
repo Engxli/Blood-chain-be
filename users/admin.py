@@ -11,4 +11,5 @@ class CustomUserAdmin(UserAdmin, admin.ModelAdmin[models.CustomUser]):
 
 @admin.register(models.UserProfile)
 class UserProfileAdmin(admin.ModelAdmin[models.UserProfile]):
-    pass
+    list_display = ["user", "crypto_wallet", "phone", "blood_type"]
+    list_filter = ["blood_type"]
