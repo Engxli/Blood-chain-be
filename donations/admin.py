@@ -43,9 +43,6 @@ def mark_as_complete(
         mark_donation_as_completed(donation)
 
 
-
-
-
 class DonationForm(forms.ModelForm[models.Donation]):
     class Meta:
         model = models.Donation
@@ -57,7 +54,7 @@ class DonationAdmin(admin.ModelAdmin[models.Donation]):
     list_display = ("id", "donor", "request", "image", "status")
     list_display_links = ("id", "donor")
 
-    list_filter = (SubmitForReviewFilter,"status")
+    list_filter = (SubmitForReviewFilter, "status")
 
     actions = (mark_as_complete,)
     form = DonationForm
