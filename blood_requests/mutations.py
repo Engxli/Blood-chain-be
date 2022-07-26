@@ -53,7 +53,7 @@ class CancelBloodRequest(graphene.Mutation):
         except Request.DoesNotExist as exc:
             raise GraphQLError(str(exc))
         if request.status != request.Status.ONGOING:
-            raise GraphQLError("Request is not ongoing")
+            raise GraphQLError("Blood request is no longer ongoing")
         request.status = request.Status.CANCELED
         donations = models.Donation.objects.filter(
             Q(status=models.Donation.Status.PENDING),
@@ -79,7 +79,7 @@ class CompleteBloodRequest(graphene.Mutation):
         except Request.DoesNotExist as exc:
             raise GraphQLError(str(exc))
         if request.status != request.Status.ONGOING:
-            raise GraphQLError("Request is not ongoing")
+            raise GraphQLError("Blood request is no longer ongoing")
         request.status = request.Status.COMPLETE
         donations = models.Donation.objects.filter(
             Q(status=models.Donation.Status.PENDING),
