@@ -16,9 +16,10 @@ class UserType(graphene_django.DjangoObjectType):
 
 class UserProfileType(graphene_django.DjangoObjectType):
     can_donate = graphene.Boolean()
+
     class Meta:
         model = UserProfile
-        
-    def resolve_can_donate (self, info: graphene.ResolveInfo) -> bool:
-        profile = models.UserProfile.objects.get(pk = self.id)
+
+    def resolve_can_donate(self, info: graphene.ResolveInfo) -> bool:
+        profile = models.UserProfile.objects.get(pk=self.id)
         return profile.can_donate
