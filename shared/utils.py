@@ -1,5 +1,6 @@
 import calendar
 import time
+from datetime import datetime
 from typing import Any, Optional
 
 import graphene
@@ -10,6 +11,7 @@ from graphql_jwt.exceptions import PermissionDenied
 from web3 import Web3
 from web3.types import ENS
 
+from donations import models
 from nft.abi import abi, contract_address
 from nft.models import NFTMint
 from users.models import CustomUser, UserProfile
@@ -73,3 +75,11 @@ def get_used_nfts_mint_from_smart_contract(
     ).call()
     only_used_messages = (value for value in returned_values if value[0])
     return [signed_messages[msg[1]] for msg in only_used_messages]
+
+
+def mark_donation_as_completed(donation: models.Donation) -> None:
+    donation.completed_at = datetime.now()
+    donation.status = donation.Status.COMPLETE
+    assert donation.donor is not None
+    give_permission_to_mint(donation.donor)
+    donation.save()

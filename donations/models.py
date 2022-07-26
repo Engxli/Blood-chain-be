@@ -24,6 +24,7 @@ class Donation(TimestampMixin, models.Model):
         on_delete=models.CASCADE,
         related_name="donations",
     )
+    image = models.ImageField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
