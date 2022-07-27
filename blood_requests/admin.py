@@ -1,15 +1,15 @@
 from typing import Any
 
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models import QuerySet
 
 from blood_requests import models
-from users.models import UserProfile
+from donations.models import Donation
 
 
-class OwnerInline(GenericTabularInline):
-    model = UserProfile
+class DonationInline(admin.TabularInline[Any, Any]):
+    model = Donation
+    extra = 1
 
 
 @admin.action(description="Mark selected requests as complete")
@@ -26,6 +26,4 @@ class RequestAdmin(admin.ModelAdmin[models.Request]):
     list_display = ["owner", "blood_type", "severity", "status"]
     list_filter = ["blood_type", "severity", "status"]
     actions = [mark_as_complete]
-    inlines = [
-        OwnerInline,
-    ]
+    inlines = (DonationInline,)

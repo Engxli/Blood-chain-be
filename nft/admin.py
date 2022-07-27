@@ -1,16 +1,26 @@
+from typing import Any
+
 from django.contrib import admin
 
 from nft import models
 
 
+class AttributesInline(admin.TabularInline[Any, Any]):
+    model = models.Attributes
+    extra = 1
+
+
 @admin.register(models.AttributeName)
 class NFTAttrNameAdmin(admin.ModelAdmin[models.AttributeName]):
-    pass
+    list_display = ["name"]
+    list_filter = ("name",)
+    inlines = (AttributesInline,)
 
 
 @admin.register(models.Attributes)
 class NFTAttrAdmin(admin.ModelAdmin[models.Attributes]):
-    pass
+    list_display = ["attr_name", "value"]
+    list_filter = ("attr_name",)
 
 
 @admin.register(models.NFT)
