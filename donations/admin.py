@@ -3,6 +3,7 @@ from typing import Any, Optional
 from django import forms
 from django.contrib import admin
 from django.db.models import QuerySet
+from django.http import HttpRequest
 
 from donations import models
 from shared.utils import mark_donation_as_completed
@@ -12,7 +13,11 @@ class SubmitForReviewFilter(admin.SimpleListFilter):
     title: str = "pending approval"
     parameter_name: str = "pending_approval"
 
-    def lookups(self, request: Any, model_admin: Any) -> list[tuple[Any, str]]:
+    def lookups(
+        self,
+        request: HttpRequest,
+        model_admin: admin.ModelAdmin[models.Donation],
+    ) -> list[tuple[Any, str]]:
         return [(True, "pending approval"), (False, "approved")]
 
     def _get_lookup(self) -> Optional[bool]:
@@ -20,7 +25,7 @@ class SubmitForReviewFilter(admin.SimpleListFilter):
         return value == "True" if value else None
 
     def queryset(
-        self, request: Any, queryset: QuerySet[models.Donation]
+        self, request: HttpRequest, queryset: QuerySet[models.Donation]
     ) -> Optional[QuerySet[models.Donation]]:
         is_pending = self._get_lookup()
         if is_pending is None:
@@ -36,7 +41,7 @@ class SubmitForReviewFilter(admin.SimpleListFilter):
 @admin.action(description="Mark selected donations as complete")
 def mark_as_complete(
     modeladmin: admin.ModelAdmin[models.Donation],
-    request: Any,
+    request: HttpRequest,
     queryset: QuerySet[models.Donation],
 ) -> None:
     for donation in queryset:
