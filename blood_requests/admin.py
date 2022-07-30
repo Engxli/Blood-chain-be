@@ -1,13 +1,12 @@
-from typing import Any
-
 from django.contrib import admin
 from django.db.models import QuerySet
+from django.http import HttpRequest
 
 from blood_requests import models
 from donations.models import Donation
 
 
-class DonationInline(admin.TabularInline[Any, Any]):
+class DonationInline(admin.TabularInline[Donation, models.Request]):
     model = Donation
     extra = 1
 
@@ -15,10 +14,10 @@ class DonationInline(admin.TabularInline[Any, Any]):
 @admin.action(description="Mark selected requests as complete")
 def mark_as_complete(
     modeladmin: admin.ModelAdmin[models.Request],
-    request: Any,
+    request: HttpRequest,
     queryset: QuerySet[models.Request],
 ) -> None:
-    queryset.update(status=2)
+    queryset.update(status=models.Request.Status.COMPLETE)
 
 
 @admin.register(models.Request)

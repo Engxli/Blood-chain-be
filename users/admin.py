@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
@@ -10,7 +8,8 @@ from users import models
 
 admin.site.unregister(Group)
 
-class RequestInline(admin.TabularInline[Any, Any]):
+
+class RequestInline(admin.TabularInline[Request, models.UserProfile]):
     model = Request
     extra = 1
 

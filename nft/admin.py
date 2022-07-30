@@ -1,11 +1,11 @@
-from typing import Any
-
 from django.contrib import admin
 
 from nft import models
 
 
-class AttributesInline(admin.TabularInline[Any, Any]):
+class AttributesInline(
+    admin.TabularInline[models.Attributes, models.AttributeName]
+):
     model = models.Attributes
     extra = 1
 

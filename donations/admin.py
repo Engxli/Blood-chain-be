@@ -4,19 +4,8 @@ from django import forms
 from django.contrib import admin
 from django.db.models import QuerySet
 
-# from blood_requests.models import Request
 from donations import models
 from shared.utils import mark_donation_as_completed
-
-
-# from users.models import UserProfile
-
-
-# class RequestInline(admin.TabularInline):
-#     model = Request
-
-# class DonorInline(admin.TabularInline):
-#     model = UserProfile
 
 
 class SubmitForReviewFilter(admin.SimpleListFilter):
