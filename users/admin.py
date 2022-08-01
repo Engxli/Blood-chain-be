@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
 from blood_requests.models import Request
+from shared.admin import export_as_csv
 from users import models
 
 
@@ -24,3 +25,4 @@ class UserProfileAdmin(admin.ModelAdmin[models.UserProfile]):
     list_display = ["user", "crypto_wallet", "phone", "blood_type"]
     list_filter = ["blood_type"]
     inlines = (RequestInline,)
+    actions = (export_as_csv,)

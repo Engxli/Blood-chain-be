@@ -5,7 +5,19 @@ abi = [
                 "internalType": "address",
                 "name": "_proxyRegistryAddress",
                 "type": "address",
-            }
+            },
+            {"internalType": "string", "name": "_name", "type": "string"},
+            {"internalType": "string", "name": "_symbol", "type": "string"},
+            {
+                "internalType": "string",
+                "name": "__baseTokenURI",
+                "type": "string",
+            },
+            {
+                "internalType": "string",
+                "name": "__contractURI",
+                "type": "string",
+            },
         ],
         "stateMutability": "nonpayable",
         "type": "constructor",
@@ -135,7 +147,6 @@ abi = [
         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -157,7 +168,43 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
+    },
+    {
+        "inputs": [],
+        "name": "baseTokenURI",
+        "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+        "stateMutability": "view",
+        "type": "function",
+    },
+    {
+        "inputs": [
+            {"internalType": "bytes32[]", "name": "_msg", "type": "bytes32[]"}
+        ],
+        "name": "check_used_signed",
+        "outputs": [
+            {
+                "components": [
+                    {"internalType": "bool", "name": "_used", "type": "bool"},
+                    {
+                        "internalType": "uint256",
+                        "name": "_index",
+                        "type": "uint256",
+                    },
+                ],
+                "internalType": "struct NFT.USEDSIGNED[]",
+                "name": "",
+                "type": "tuple[]",
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+    },
+    {
+        "inputs": [],
+        "name": "contractURI",
+        "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+        "stateMutability": "view",
+        "type": "function",
     },
     {
         "inputs": [
@@ -179,7 +226,6 @@ abi = [
         "outputs": [{"internalType": "bytes", "name": "", "type": "bytes"}],
         "stateMutability": "payable",
         "type": "function",
-        "payable": True,
     },
     {
         "inputs": [
@@ -191,7 +237,6 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [],
@@ -201,7 +246,6 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [],
@@ -211,7 +255,6 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -223,23 +266,18 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
-            {
-                "internalType": "address",
-                "name": "userAddress",
-                "type": "address",
-            }
+            {"internalType": "address", "name": "_address", "type": "address"},
+            {"internalType": "string", "name": "_str", "type": "string"},
         ],
-        "name": "getOwnedNFTs",
+        "name": "hash",
         "outputs": [
-            {"internalType": "uint256[]", "name": "", "type": "uint256[]"}
+            {"internalType": "bytes32", "name": "", "type": "bytes32"}
         ],
-        "stateMutability": "view",
+        "stateMutability": "pure",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -250,13 +288,27 @@ abi = [
         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
-            {"internalType": "address", "name": "_to", "type": "address"}
+            {"internalType": "uint256[]", "name": "time", "type": "uint256[]"},
+            {"internalType": "uint8[]", "name": "v", "type": "uint8[]"},
+            {"internalType": "bytes32[]", "name": "r", "type": "bytes32[]"},
+            {"internalType": "bytes32[]", "name": "s", "type": "bytes32[]"},
         ],
-        "name": "mintTo",
+        "name": "minit_all",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+    },
+    {
+        "inputs": [
+            {"internalType": "uint256", "name": "time", "type": "uint256"},
+            {"internalType": "uint8", "name": "v", "type": "uint8"},
+            {"internalType": "bytes32", "name": "r", "type": "bytes32"},
+            {"internalType": "bytes32", "name": "s", "type": "bytes32"},
+        ],
+        "name": "mint",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function",
@@ -267,7 +319,17 @@ abi = [
         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
+    },
+    {
+        "inputs": [
+            {"internalType": "address", "name": "_owner", "type": "address"}
+        ],
+        "name": "owned_nfts",
+        "outputs": [
+            {"internalType": "uint256[]", "name": "", "type": "uint256[]"}
+        ],
+        "stateMutability": "view",
+        "type": "function",
     },
     {
         "inputs": [],
@@ -277,7 +339,6 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -289,7 +350,22 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
+    },
+    {
+        "inputs": [
+            {"internalType": "address", "name": "_address", "type": "address"},
+            {"internalType": "string", "name": "_msg", "type": "string"},
+            {"internalType": "uint8", "name": "v", "type": "uint8"},
+            {"internalType": "bytes32", "name": "r", "type": "bytes32"},
+            {"internalType": "bytes32", "name": "s", "type": "bytes32"},
+        ],
+        "name": "recover",
+        "outputs": [
+            {"internalType": "address", "name": "", "type": "address"},
+            {"internalType": "bytes32", "name": "", "type": "bytes32"},
+        ],
+        "stateMutability": "pure",
+        "type": "function",
     },
     {
         "inputs": [],
@@ -314,7 +390,7 @@ abi = [
             {"internalType": "address", "name": "from", "type": "address"},
             {"internalType": "address", "name": "to", "type": "address"},
             {"internalType": "uint256", "name": "tokenId", "type": "uint256"},
-            {"internalType": "bytes", "name": "_data", "type": "bytes"},
+            {"internalType": "bytes", "name": "data", "type": "bytes"},
         ],
         "name": "safeTransferFrom",
         "outputs": [],
@@ -339,7 +415,6 @@ abi = [
         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [],
@@ -347,7 +422,6 @@ abi = [
         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -355,9 +429,8 @@ abi = [
         ],
         "name": "tokenURI",
         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [],
@@ -367,7 +440,6 @@ abi = [
         ],
         "stateMutability": "view",
         "type": "function",
-        "constant": True,
     },
     {
         "inputs": [
@@ -390,20 +462,20 @@ abi = [
         "type": "function",
     },
     {
-        "inputs": [],
-        "name": "baseTokenURI",
-        "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-        "stateMutability": "pure",
+        "inputs": [
+            {"internalType": "address", "name": "_address", "type": "address"},
+            {"internalType": "string", "name": "_msg", "type": "string"},
+            {"internalType": "uint8", "name": "v", "type": "uint8"},
+            {"internalType": "bytes32", "name": "r", "type": "bytes32"},
+            {"internalType": "bytes32", "name": "s", "type": "bytes32"},
+        ],
+        "name": "validate",
+        "outputs": [
+            {"internalType": "bool", "name": "", "type": "bool"},
+            {"internalType": "bytes32", "name": "", "type": "bytes32"},
+        ],
+        "stateMutability": "view",
         "type": "function",
-        "constant": True,
-    },
-    {
-        "inputs": [],
-        "name": "contractURI",
-        "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-        "stateMutability": "pure",
-        "type": "function",
-        "constant": True,
     },
 ]
-contract_address = ""
+contract_address = "0x5a15526870Af2851161534b470e6249f9b5ea7e8"

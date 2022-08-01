@@ -14,6 +14,7 @@ class AuthMutation(graphene.ObjectType):
     register = mutations.Register.Field()
     token_auth = mutations.ObtainJSONWebToken.Field()
     login = mutations.ObtainJSONWebToken.Field()
+    refresh_token = mutations.RefreshToken.Field()
 
 
 class UpdateProfile(graphene.Mutation):

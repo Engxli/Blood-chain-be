@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from nft import models
+from shared.admin import export_as_csv
 
 
 class AttributesInline(
@@ -27,3 +28,4 @@ class NFTAttrAdmin(admin.ModelAdmin[models.Attributes]):
 class NFTAdmin(admin.ModelAdmin[models.NFT]):
     list_display = ("id", "name", "image")
     list_filter = ("attributes__attr_name",)
+    actions = (export_as_csv,)

@@ -7,16 +7,16 @@ from shared.utils import get_used_nfts_mint_from_smart_contract
 
 class NFTMintMutation(graphene.Mutation):
     class Arguments:
-        singed_messages = graphene.List(graphene.String)
+        signed_messages = graphene.List(graphene.String)
 
     status = graphene.Boolean()
 
     def mutate(
         root,
         info: graphene.ResolveInfo,
-        singed_messages: list[str],
+        signed_messages: list[str],
     ) -> "NFTMintMutation":
-        used_messages = get_used_nfts_mint_from_smart_contract(singed_messages)
+        used_messages = get_used_nfts_mint_from_smart_contract(signed_messages)
         if used_messages is None:
             raise GraphQLError("Invalid signed messages")
 
