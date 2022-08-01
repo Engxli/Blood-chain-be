@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 
 from donations import models
+from shared.admin import export_as_csv
 from shared.utils import mark_donation_as_completed
 
 
@@ -61,5 +62,5 @@ class DonationAdmin(admin.ModelAdmin[models.Donation]):
 
     list_filter = (SubmitForReviewFilter, "status")
 
-    actions = (mark_as_complete,)
+    actions = (mark_as_complete, export_as_csv)
     form = DonationForm
