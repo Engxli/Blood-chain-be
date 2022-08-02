@@ -35,7 +35,7 @@ class Request(TimestampMixin, models.Model):
     file_number = models.IntegerField(null=True)
     severity = models.CharField(max_length=6, choices=Severity.choices)
     status = models.IntegerField(choices=Status.choices, null=True)
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(null=True, blank=True)
     details = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
