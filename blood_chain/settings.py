@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 from datetime import timedelta
 from pathlib import Path
 
 import django_stubs_ext
-from decouple import config
+from decouple import UndefinedValueError, config
 from dj_database_url import parse as db_url
 
 
@@ -28,14 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-r7fqwtr4x#8#amsom5&0cs9r77j%$_op9h!^1q2yc9s*tc+4t("
-)
+try:
+    SECRET_KEY = config("SECRET_KEY")
+except UndefinedValueError as exc:
+    msg = "Use `openssl rand -hex 16` to generate a random secret key."
+    raise UndefinedValueError(f"{exc} {msg}") from exc
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=["localhost"], cast=list)
 
 
 # Application definition
@@ -107,7 +108,7 @@ ROOT_URLCONF = "blood_chain.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [(BASE_DIR / "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
