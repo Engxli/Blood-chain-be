@@ -97,7 +97,7 @@ GRAPHQL_JWT = {
         "graphql_auth.mutations.Register",
         "graphql_auth.mutations.ObtainJSONWebToken",
     ],
-    "JWT_EXPIRATION_DELTA": timedelta(minutes=3),
+    "JWT_EXPIRATION_DELTA": timedelta(minutes=60),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=15),
 }
 
