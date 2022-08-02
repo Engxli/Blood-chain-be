@@ -3,19 +3,12 @@ from django.db import models
 from users.models import UserProfile
 
 
-class AttributeName(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    def __str__(self) -> str:
-        return self.name
-
-
 class Attributes(models.Model):
-    attr_name = models.ForeignKey(AttributeName, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
 
     def __str__(self) -> str:
-        return self.attr_name.name + ": " + self.value
+        return self.name + ": " + self.value
 
     class Meta:
         verbose_name_plural = "Attributes"
