@@ -80,6 +80,6 @@ def get_used_nfts_mint_from_smart_contract(
 def mark_donation_as_completed(donation: models.Donation) -> None:
     donation.completed_at = datetime.now()
     donation.status = donation.Status.COMPLETE
-    assert donation.donor is not None
-    give_permission_to_mint(donation.donor)
+    if donation.donor is not None:
+        give_permission_to_mint(donation.donor)
     donation.save()
