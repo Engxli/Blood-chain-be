@@ -10,9 +10,7 @@ def get_nft_info_by_id(request: HttpRequest, nft_id: int) -> JsonResponse:
     except NFT.DoesNotExist:
         return JsonResponse({"error": "Nft does not exist"}, status=404)
 
-    attributes = nft.attributes.values(
-        "value", trait_type=F("attr_name__name")
-    )
+    attributes = nft.attributes.values("value", trait_type=F("name"))
     return JsonResponse(
         {
             "attributes": list(attributes),
