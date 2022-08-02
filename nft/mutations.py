@@ -1,5 +1,4 @@
 import graphene
-from django.db.models import QuerySet
 from graphql import GraphQLError
 
 from nft.models import NFTMint
@@ -11,7 +10,6 @@ from shared.utils import (
 
 
 class NFTMintMutation(graphene.Mutation):
-
     nfts = graphene.List(NFTMintType)
 
     def mutate(
@@ -22,13 +20,15 @@ class NFTMintMutation(graphene.Mutation):
         qs = NFTMint.objects.filter(user=profile, used=False).values_list(
             "signed_message", flat=True
         )
-        msgs = list(qs)
-        used_messages = get_used_nfts_mint_from_smart_contract(msgs)
+        used_messages = get_used_nfts_mint_from_smart_contract(list(qs))
         if used_messages is None:
             raise GraphQLError("Invalid signed messages")
+
         qs2 = NFTMint.objects.filter(signed_message__in=used_messages)
         qs2.update(used=True)
+
         nfts = NFTMint.objects.filter(user=profile, used=False)
+
         return NFTMintMutation(nfts=nfts)
 
 
