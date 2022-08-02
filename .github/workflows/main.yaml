@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main, staging]
 
+env:
+  SECRET_KEY: django-insecure-r7fqwtr4x#8#amsom5&0cs9r77j%$_op9h!^1q2yc9s*tc+4t(
+
 jobs:
   lint-commits:
     runs-on: ubuntu-latest
