@@ -75,6 +75,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default=["http://blood-chain-be.us-east-1.elasticbeanstalk.com/"],
+    cast=list,
+)
 
 GRAPHENE = {
     "MIDDLEWARE": [
