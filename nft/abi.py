@@ -8,16 +8,6 @@ abi = [
             },
             {"internalType": "string", "name": "_name", "type": "string"},
             {"internalType": "string", "name": "_symbol", "type": "string"},
-            {
-                "internalType": "string",
-                "name": "__baseTokenURI",
-                "type": "string",
-            },
-            {
-                "internalType": "string",
-                "name": "__contractURI",
-                "type": "string",
-            },
         ],
         "stateMutability": "nonpayable",
         "type": "constructor",
@@ -409,6 +399,32 @@ abi = [
     },
     {
         "inputs": [
+            {
+                "internalType": "string",
+                "name": "__baseTokenURI",
+                "type": "string",
+            }
+        ],
+        "name": "set__baseTokenURI",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "__contractURI",
+                "type": "string",
+            }
+        ],
+        "name": "set__contractURI",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+    },
+    {
+        "inputs": [
             {"internalType": "bytes4", "name": "interfaceId", "type": "bytes4"}
         ],
         "name": "supportsInterface",
@@ -478,4 +494,4 @@ abi = [
         "type": "function",
     },
 ]
-contract_address = "0x5a15526870Af2851161534b470e6249f9b5ea7e8"
+contract_address = "0xb43B8BD01490142919986170C4C6e84C8b5E51a8"
