@@ -1,6 +1,4 @@
-# Created by https://www.gitignore.io
-
-### OSX ###
+# OSX 
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -25,7 +23,7 @@ Temporary Items
 .apdisk
 
 
-### Python ###
+# Python 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -80,7 +78,7 @@ docs/_build/
 target/
 
 
-### Django ###
+# Django 
 *.log
 *.pot
 *.pyc
@@ -90,8 +88,3 @@ local_settings.py
 .env
 .venv
 db.sqlite3
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml

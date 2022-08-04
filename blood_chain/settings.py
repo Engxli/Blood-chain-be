@@ -127,11 +127,25 @@ WSGI_APPLICATION = "blood_chain.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": config(
-        "DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3", cast=db_url
-    )
-}
+try:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("RDS_DB_NAME"),
+            "USER": config("RDS_USERNAME"),
+            "PASSWORD": config("RDS_PASSWORd"),
+            "HOST": config("RDS_HOSTNAME"),
+            "PORT": config("RDS_PORT"),
+        }
+    }
+except UndefinedValueError:
+    DATABASES = {
+        "default": config(
+            "DATABASE_URL",
+            default=f"sqlite:///{BASE_DIR}/db.sqlite3",
+            cast=db_url,
+        )
+    }
 
 
 # Password validation
