@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
+from graphql_jwt.refresh_token.models import RefreshToken
 
 from blood_requests.models import Request
 from shared.admin import export_as_csv
@@ -8,6 +9,7 @@ from users import models
 
 
 admin.site.unregister(Group)
+admin.site.unregister(RefreshToken)
 
 
 class RequestInline(admin.TabularInline[Request, models.UserProfile]):
